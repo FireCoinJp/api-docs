@@ -32,37 +32,37 @@ This example API documentation page was created with [Slate](https://github.com/
 ```ruby
 require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+api = Kittn::APIClient.authorize!('XXXXXXXXXXX')
 ```
 
 ```python
 import kittn
 
-api = kittn.authorize('meowmeowmeow')
+api = kittn.authorize('XXXXXXXXXXX')
 ```
 
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: XXXXXXXXXXX"
 ```
 
 ```javascript
 const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
+let api = kittn.authorize('XXXXXXXXXXX');
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+> Make sure to replace `XXXXXXXXXXX` with your API key.
 
 Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
 
 Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`Authorization: XXXXXXXXXXX`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>XXXXXXXXXXX</code> with your personal API key.
 </aside>
 
 # Kittens
@@ -72,26 +72,26 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 ```ruby
 require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+api = Kittn::APIClient.authorize!('XXXXXXXXXXX')
 api.kittens.get
 ```
 
 ```python
 import kittn
 
-api = kittn.authorize('meowmeowmeow')
+api = kittn.authorize('XXXXXXXXXXX')
 api.kittens.get()
 ```
 
 ```shell
 curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: XXXXXXXXXXX"
 ```
 
 ```javascript
 const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
+let api = kittn.authorize('XXXXXXXXXXX');
 let kittens = api.kittens.get();
 ```
 
@@ -138,26 +138,26 @@ Remember — a happy kitten is an authenticated kitten!
 ```ruby
 require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+api = Kittn::APIClient.authorize!('XXXXXXXXXXX')
 api.kittens.get(2)
 ```
 
 ```python
 import kittn
 
-api = kittn.authorize('meowmeowmeow')
+api = kittn.authorize('XXXXXXXXXXX')
 api.kittens.get(2)
 ```
 
 ```shell
 curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: XXXXXXXXXXX"
 ```
 
 ```javascript
 const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
+let api = kittn.authorize('XXXXXXXXXXX');
 let max = api.kittens.get(2);
 ```
 
@@ -192,27 +192,27 @@ ID | The ID of the kitten to retrieve
 ```ruby
 require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+api = Kittn::APIClient.authorize!('XXXXXXXXXXX')
 api.kittens.delete(2)
 ```
 
 ```python
 import kittn
 
-api = kittn.authorize('meowmeowmeow')
+api = kittn.authorize('XXXXXXXXXXX')
 api.kittens.delete(2)
 ```
 
 ```shell
 curl "http://example.com/api/kittens/2"
   -X DELETE
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: XXXXXXXXXXX"
 ```
 
 ```javascript
 const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
+let api = kittn.authorize('XXXXXXXXXXX');
 let max = api.kittens.delete(2);
 ```
 
