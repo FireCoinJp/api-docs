@@ -51,8 +51,12 @@ You're going to need:
 
 ```shell
 # either run this to run locally
+bundle config build.nokogiri --use-system-libraries
 bundle install
 bundle exec middleman server
+
+# 更新静态内容
+./deploy.sh 
 
 # OR run this to run with vagrant
 vagrant up
