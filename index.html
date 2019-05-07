@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Huobi Japan API Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -212,9 +212,6 @@
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -222,282 +219,3427 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
-          </li>
-          <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#api" class="toc-h1 toc-link" data-title="APIの紹介">APIの紹介</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
-                  </li>
-                  <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
-                  </li>
-                  <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#ebb21425d1" class="toc-h2 toc-link" data-title="前書き">前書き</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#rest-api" class="toc-h1 toc-link" data-title="Rest API共通情報">Rest API共通情報</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#7a6d9a260f" class="toc-h2 toc-link" data-title="セキュリティ認証">セキュリティ認証</a>
+                  </li>
+                  <li>
+                    <a href="#4adc7a21f5" class="toc-h2 toc-link" data-title="署名処理">署名処理</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#f5073b428a" class="toc-h1 toc-link" data-title="マスター情報関連">マスター情報関連</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#65af6c1e27" class="toc-h2 toc-link" data-title="取引ペア精度">取引ペア精度</a>
+                  </li>
+                  <li>
+                    <a href="#c6f832ae00" class="toc-h2 toc-link" data-title="対応取引通貨ペア">対応取引通貨ペア</a>
+                  </li>
+                  <li>
+                    <a href="#de96e45aa6" class="toc-h2 toc-link" data-title="システム時間を調べる">システム時間を調べる</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#bcfb21e4d2" class="toc-h1 toc-link" data-title="マーケット関連">マーケット関連</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#kline" class="toc-h2 toc-link" data-title="KLineデータの取得">KLineデータの取得</a>
+                  </li>
+                  <li>
+                    <a href="#ticker" class="toc-h2 toc-link" data-title="板データの取得 (Ticker)">板データの取得 (Ticker)</a>
+                  </li>
+                  <li>
+                    <a href="#341450fdd0" class="toc-h2 toc-link" data-title="すべての取引ペアの取引相場">すべての取引ペアの取引相場</a>
+                  </li>
+                  <li>
+                    <a href="#depth" class="toc-h2 toc-link" data-title="マーケットデプス (Depth)">マーケットデプス (Depth)</a>
+                  </li>
+                  <li>
+                    <a href="#31d30b08be" class="toc-h2 toc-link" data-title="取引詳細データの取得">取引詳細データの取得</a>
+                  </li>
+                  <li>
+                    <a href="#15f00772c5" class="toc-h2 toc-link" data-title="取引履歴の取得">取引履歴の取得</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#f56e112e8f" class="toc-h1 toc-link" data-title="アカウント関連">アカウント関連</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#eda1f800b0" class="toc-h2 toc-link" data-title="ユーザアカウント">ユーザアカウント</a>
+                  </li>
+                  <li>
+                    <a href="#c617e5c5d4" class="toc-h2 toc-link" data-title="残高照合">残高照合</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#c1707c99a3" class="toc-h1 toc-link" data-title="取引関連">取引関連</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#bea621a911" class="toc-h2 toc-link" data-title="注文実行">注文実行</a>
+                  </li>
+                  <li>
+                    <a href="#c9b851ba3b" class="toc-h2 toc-link" data-title="未約定注文一覧">未約定注文一覧</a>
+                  </li>
+                  <li>
+                    <a href="#75e116b1eb" class="toc-h2 toc-link" data-title="注文キャンセル">注文キャンセル</a>
+                  </li>
+                  <li>
+                    <a href="#7fd8579ed8" class="toc-h2 toc-link" data-title="注文の一括キャンセル">注文の一括キャンセル</a>
+                  </li>
+                  <li>
+                    <a href="#4f39b268d3" class="toc-h2 toc-link" data-title="条件付き注文の一括キャンセル">条件付き注文の一括キャンセル</a>
+                  </li>
+                  <li>
+                    <a href="#ac82af1ef4" class="toc-h2 toc-link" data-title="注文の詳細の照会">注文の詳細の照会</a>
+                  </li>
+                  <li>
+                    <a href="#f686f1643c" class="toc-h2 toc-link" data-title="注文の約定詳細の照会">注文の約定詳細の照会</a>
+                  </li>
+                  <li>
+                    <a href="#e4de6d1a79" class="toc-h2 toc-link" data-title="約定履歴の照会">約定履歴の照会</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#c0360c450d" class="toc-h1 toc-link" data-title="ウォレット関連">ウォレット関連</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#b6ff136b7b" class="toc-h2 toc-link" data-title="ステータス一覧">ステータス一覧</a>
+                  </li>
+                  <li>
+                    <a href="#0ee899dbb8" class="toc-h2 toc-link" data-title="仮想通貨の出金申請">仮想通貨の出金申請</a>
+                  </li>
+                  <li>
+                    <a href="#c1681207bc" class="toc-h2 toc-link" data-title="仮想通貨の出金のキャンセル">仮想通貨の出金のキャンセル</a>
+                  </li>
+                  <li>
+                    <a href="#0091062ee7" class="toc-h2 toc-link" data-title="入出金記録">入出金記録</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#044106d39a" class="toc-h1 toc-link" data-title="エラーコード">エラーコード</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#api" class="toc-h2 toc-link" data-title="マーケット関連API">マーケット関連API</a>
+                  </li>
+                  <li>
+                    <a href="#api-2" class="toc-h2 toc-link" data-title="取引関連API">取引関連API</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#websocket" class="toc-h1 toc-link" data-title="Websocket共通">Websocket共通</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#web-ssl" class="toc-h2 toc-link" data-title="Webソケットの接続 (SSL)">Webソケットの接続 (SSL)</a>
+                  </li>
+                  <li>
+                    <a href="#d4d63da93d" class="toc-h2 toc-link" data-title="データ">データ</a>
+                  </li>
+                  <li>
+                    <a href="#4c3a8f8278" class="toc-h2 toc-link" data-title="ライブラリー">ライブラリー</a>
+                  </li>
+                  <li>
+                    <a href="#topic" class="toc-h2 toc-link" data-title="Topic">Topic</a>
+                  </li>
+                  <li>
+                    <a href="#86af4bc374" class="toc-h2 toc-link" data-title="ハートビート">ハートビート</a>
+                  </li>
+                  <li>
+                    <a href="#90aa7c4e14" class="toc-h2 toc-link" data-title="リクエスト">リクエスト</a>
+                  </li>
+                  <li>
+                    <a href="#9a2e6232e2" class="toc-h2 toc-link" data-title="トピックの購読">トピックの購読</a>
+                  </li>
+                  <li>
+                    <a href="#4f67d6e1d9" class="toc-h2 toc-link" data-title="購読の解除">購読の解除</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#websocket-2" class="toc-h1 toc-link" data-title="Websocketリファレンス">Websocketリファレンス</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#d286268be5" class="toc-h2 toc-link" data-title="ローソク足 データ">ローソク足 データ</a>
+                  </li>
+                  <li>
+                    <a href="#kline" class="toc-h2 toc-link" data-title="KLineデータ">KLineデータ</a>
+                  </li>
+                  <li>
+                    <a href="#a5a13a822b" class="toc-h2 toc-link" data-title="マーケットデプスを購読する">マーケットデプスを購読する</a>
+                  </li>
+                  <li>
+                    <a href="#65b803d426" class="toc-h2 toc-link" data-title="マーケットデプスのリクエスト">マーケットデプスのリクエスト</a>
+                  </li>
+                  <li>
+                    <a href="#ebf005b223" class="toc-h2 toc-link" data-title="取引の詳細">取引の詳細</a>
+                  </li>
+                  <li>
+                    <a href="#8ba516f1f6" class="toc-h2 toc-link" data-title="取引詳細のリクエスト">取引詳細のリクエスト</a>
+                  </li>
+                  <li>
+                    <a href="#0e9b8c0c7c" class="toc-h2 toc-link" data-title="マーケット詳細のリクエスト">マーケット詳細のリクエスト</a>
+                  </li>
+              </ul>
           </li>
       </ul>
-        <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
-        </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+        <h1 id='api'>APIの紹介</h1><h2 id='ebb21425d1'>前書き</h2>
+<p>Huobi APIへようこそ。当社のAPIを使用して、すべてのマーケットデータ、取引、およびアカウント管理のエンドポイントにアクセスできます。</p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>下記の２種類のAPIを用意いたします。</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<ul>
+<li>Rest API方式</li>
+<li>Websocket方式</li>
+</ul>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'XXXXXXXXXXX'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p>右側のコード領域にはサンプルコードが表示されます。</p>
+<h1 id='rest-api'>Rest API共通情報</h1>
+<p>本APIを使って、取引プログラムの実装ができます。</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'XXXXXXXXXXX'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: XXXXXXXXXXX"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<p>APIを使えば以下の機能が使用できます。</p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'XXXXXXXXXXX'</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>Make sure to replace <code>XXXXXXXXXXX</code> with your API key.</p>
-</blockquote>
+<ul>
+<li>下記のマーケット情報を取得可能
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<ul>
+<li>チャート情報</li>
+<li>デプス (奥行き)</li>
+<li>リアルタイム約定情報</li>
+<li>24時間チャートのモニタリング</li>
+</ul></li>
+<li>資産情報の取得</li>
+<li>注文する、及び注文取り消し操作</li>
+<li>注文履歴の取得</li>
+</ul>
+<h2 id='7a6d9a260f'>セキュリティ認証</h2><h3 id='1-api-key'>1. API KEYの申請</h3>
+<ul>
+<li>API-KEYの作成と変更について、 [アカウント &gt; API &gt; 秘密鍵の作成] にて行ってください。</li>
+</ul>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: XXXXXXXXXXX</code></p>
-
-<aside class="notice">
-You must replace <code>XXXXXXXXXXX</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'XXXXXXXXXXX'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'XXXXXXXXXXX'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: XXXXXXXXXXX"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'XXXXXXXXXXX'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
+<th>keyの種類</th>
+<th>説明</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>AccessKey</td>
+<td>アクセスキー</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>SecretKey</td>
+<td>署名時に必要な秘密鍵</td>
+</tr>
+</tbody></table>
+
+<aside class="info">
+秘密キーは申請時のみ表示されますので、ご注意ください。
+</aside>
+
+<aside class="warning">
+これらの二つのキーはアカウントのセキュリティに関する重要なものなので絶対に他人に開示しないでください。
+</aside>
+<h3 id='2'>2. リクエストの共通仕様</h3>
+<p>セキュリティ上の理由で、マーケットAPI以外のAPIリクエストには全て署名が必要となります。これから共通の仕様を説明します。</p>
+
+<blockquote>
+<p>リクエストの例</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\ </span> 
+      https://api-cloud.huobi.co.jp/v1/order/orders? <span class="se">\ </span>
+      <span class="nv">AccessKeyId</span><span class="o">=</span>e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx <span class="se">\ </span>
+      &amp;SignatureMethod<span class="o">=</span>HmacSHA256 <span class="se">\ </span>
+      &amp;SignatureVersion<span class="o">=</span>2 <span class="se">\ </span>
+      &amp;Timestamp<span class="o">=</span>2017-05-11T15%3A19%3A30 <span class="se">\ </span>
+      &amp;order-id<span class="o">=</span>1234567890 <span class="se">\ </span>
+      &amp;Signature<span class="o">=</span><span class="k">$(</span>some calculated value<span class="k">)</span>
+</code></pre><h3 id='host'>HOST</h3>
+<p><code>https://api-cloud.huobi.co.jp</code></p>
+<h3 id='646874b93d'>共通仕様</h3>
+<table><thead>
+<tr>
+<th>Header</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>User Agent</td>
+<td>&#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36&#39;</td>
+</tr>
+<tr>
+<td>POST Request</td>
+<td>Content-Type: application/json</td>
+</tr>
+<tr>
+<td>GET Request</td>
+<td>Content-Type: application/x-www-form-urlencoded</td>
+</tr>
+<tr>
+<td>Response Format</td>
+<td>json</td>
 </tr>
 </tbody></table>
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'XXXXXXXXXXX'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'XXXXXXXXXXX'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: XXXXXXXXXXX"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'XXXXXXXXXXX'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+頻度 - 100回/100s
+</aside> 
+<h3 id='93a550f082'>認証用共通パラメータ</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th>パラメータ</th>
+<th>詳細説明</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>AccessKeyId</td>
+<td>アクセスキー</td>
+</tr>
+<tr>
+<td>SignatureMethod</td>
+<td>署名の演算時に用いるハッシュベースプロトコル、ここではHmacSHA256を指定します</td>
+</tr>
+<tr>
+<td>SignatureVersion</td>
+<td>署名プロトコルのバージョン、ここでは2を指定します</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>リクエスト時のタイムスタンプ(UTC 時間) 。<br>タイムスタンプをクエリに含めることで、第三者がリクエストを傍受するのを防ぐことができます。例：2017-05-11T16:22:06。タイムスタンプはUTC 時間であることに注意してください。</td>
+</tr>
+<tr>
+<td>Signature</td>
+<td>署名に基づいて計算された値。署名が有効で改ざんされていないことを保証するために使用されます。<br><strong>必須</strong>、オプションのパラメーター各メソッドには、API呼び出しを定義するための一連の必須、オプションのパラメーターがあります。これらのパラメータとその意味は、各メソッドの説明で確認できます。</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'XXXXXXXXXXX'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'XXXXXXXXXXX'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: XXXXXXXXXXX"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'XXXXXXXXXXX'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
-</tr>
-</tbody></table>
-<h1 id='errors'>Errors</h1>
 <aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+GETリクエストの場合、各メソッドのパラメータに署名する必要があリます。
 </aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<aside class="notice">
+POSTリクエストに対して、下記のパラメータのみ署名する必要があります。そのほかのパラメータはRequest Bodyに入れてください<br>
+　　・AccessKeyId<br>
+　　・SignatureMethod<br>
+　　・SignatureVersion<br>
+　　・Timestamp<br>
+</aside>
+<h2 id='4adc7a21f5'>署名処理</h2><h3 id='ad0dca6c51'>署名処理手順</h3><pre class="highlight shell tab-shell"><code><span class="c"># 元のリクエスト</span>
+https://api-cloud.huobi.co.jp/v1/order/orders?
+<span class="nv">AccessKeyId</span><span class="o">=</span>e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
+&amp;order-id<span class="o">=</span>1234567890
+&amp;SignatureMethod<span class="o">=</span>HmacSHA256
+&amp;SignatureVersion<span class="o">=</span>2
+&amp;Timestamp<span class="o">=</span>2017-05-11T15:19:30
 
+<span class="c"># 1. 改行入れる</span>
+GET<span class="se">\n</span>
+
+<span class="c"># 2. 改行入れる</span>
+api-cloud.huobi.co.jp<span class="se">\n</span>
+
+<span class="c"># 3. 改行入れる</span>
+/v1/order/orders<span class="se">\n</span>
+
+<span class="c"># 4. パラメータソートする</span>
+<span class="nv">AccessKeyId</span><span class="o">=</span>e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
+<span class="nv">SignatureMethod</span><span class="o">=</span>HmacSHA256
+<span class="nv">SignatureVersion</span><span class="o">=</span>2
+<span class="nv">Timestamp</span><span class="o">=</span>2017-05-11T15%3A19%3A30
+order-id<span class="o">=</span>1234567890
+
+<span class="c"># 5. '&amp;'で連結</span>
+<span class="nv">AccessKeyId</span><span class="o">=</span>e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&amp;SignatureMethod<span class="o">=</span>HmacSHA256&amp;SignatureVersion<span class="o">=</span>2&amp;Timestamp<span class="o">=</span>2017-05-11T15%3A19%3A30&amp;order-id<span class="o">=</span>1234567890
+
+<span class="c"># 6. 署名用文字列</span>
+GET<span class="se">\n</span>
+api-cloud.huobi.co.jp<span class="se">\n</span>
+/v1/order/orders<span class="se">\n</span>
+<span class="nv">AccessKeyId</span><span class="o">=</span>e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&amp;SignatureMethod<span class="o">=</span>HmacSHA256&amp;SignatureVersion<span class="o">=</span>2&amp;Timestamp<span class="o">=</span>2017-05-11T15%3A19%3A30&amp;order-id<span class="o">=</span>1234567890
+
+<span class="c"># 7. 署名処理 - サンプルコードに参照</span>
+SecretKey: b0xxxxxx-c6xxxxxx-94xxxxxx-dxxxx
+Signature: 4F65x5A2bLyMWVQj3Aqp+B4w+ivaA7n5Oi2SuYtCJ9o<span class="o">=</span>
+
+<span class="c"># 8. 署名後の文字列をURLに付加する</span>
+https://api-cloud.huobi.co.jp/v1/order/orders?AccessKeyId<span class="o">=</span>e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&amp;order-id<span class="o">=</span>1234567890&amp;SignatureMethod<span class="o">=</span>HmacSHA256&amp;SignatureVersion<span class="o">=</span>2&amp;Timestamp<span class="o">=</span>2017-05-11T15%3A19%3A30&amp;Signature<span class="o">=</span>4F65x5A2bLyMWVQj3Aqp%2BB4w%2BivaA7n5Oi2SuYtCJ9o%3D
+</code></pre>
+<aside class="success">
+HMACを使う為に、標準化しないと署名の結果は変わります
+</aside>
+ 
+
+<ol>
+<li><p>リクエスト方法（GET 或いは POST），続けて改行を追加する</p></li>
+<li><p>小文字のアクセスアドレスに続けて改行を追加する</p></li>
+<li><p>アクセスメソッドへのパス、続けて改行を追加する</p></li>
+<li><p>パラメータ名は、ASCIIコードの順にソートされます（UTF-8エンコーディングとURIエンコーディングを使用すると、16進文字は大文字にする必要があり、 &#39;：&#39;は &#39;％3A&#39;、スペースは&#39;％20&#39;といった具合にエンコードされます）
+例えば、エンコード後の要求パラメータの元の順序は次のとおりです</p></li>
+<li><p>上記の順序で、各パラメーターは文字 &#39;＆&#39;を使用して接続されます</p></li>
+<li><p>計算のために署名される最後の文字列は次のとおりです</p></li>
+<li><p>秘密キー(SecretKey)と変換後のリクエスト文字列を使って、署名処理を行い、その結果はBase64エンコードします。<br>上記の値をパラメータSignatureの値としてAPIリクエストに追加します。 このパラメータをリクエストに追加する場合、その値はURIエンコードされている必要があります</p></li>
+<li><p>最終的に、サーバーに送信するAPIリクエストは次のようになります</p></li>
+</ol>
+<h1 id='f5073b428a'>マスター情報関連</h1><h2 id='65af6c1e27'>取引ペア精度</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+      <span class="s2">"https://api-cloud.huobi.co.jp/v1/common/symbols"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"base-currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ltc"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quote-currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jpy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price-precision"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount-precision"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"symbol-partition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ltcjpy"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"base-currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xrp"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quote-currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jpy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price-precision"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount-precision"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"symbol-partition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xrpjpy"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは各取引ペアの精度を返します。</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET /v1/common/symbols</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody></table>
+<h3 id='response-data'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td>リクエスト处理结果,  例えば: &quot;ok&quot;,&quot;error&quot;</td>
+</tr>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>list</td>
+<td>精度データ</td>
+</tr>
+</tbody></table>
+<h2 id='c6f832ae00'>対応取引通貨ペア</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+     <span class="s2">"https://api-cloud.huobi.co.jp//v1/common/currencys"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"jpy"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"btc"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"xrp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"eth"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ltc"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bch"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mona"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは各取引通貨ペアを返します。</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET /market/detail/currencys</code></p>
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='response-data-2'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td>リクエスト处理结果,  例えば: &quot;ok&quot;,&quot;error&quot;</td>
+</tr>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>list</td>
+<td>精度データ</td>
+</tr>
+</tbody></table>
+<h2 id='de96e45aa6'>システム時間を調べる</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+      <span class="s2">"https://api-cloud.huobi.co.jp//v1/common/timestamp"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">1555667124908</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントはシステムのタイムスタンプ(ミリ秒)を返します。</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>GET /market/detail/timestamp</code></p>
+<h3 id='query-parameters-3'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='response-data-3'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td>リクエスト处理结果,  例えば: &quot;ok&quot;,&quot;error&quot;</td>
+</tr>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>int</td>
+<td>システムのUNIX Timestamp (ミリ秒)</td>
+</tr>
+</tbody></table>
+<h1 id='bcfb21e4d2'>マーケット関連</h1><h2 id='kline'>KLineデータの取得</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+      <span class="s2">"https://api-cloud.huobi.co.jp/market/history/kline?period=1day&amp;size=200&amp;symbol=btcjpy"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcjpy.kline.1day"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1499223904680</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1499184000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">37593.0266</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mf">1935.2000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mf">1879.0000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mf">1856.0000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mf">1940.0000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vol"</span><span class="p">:</span><span class="w"> </span><span class="mf">71031537.97866500</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+      https://api-cloud.huobi.co.jp/market/history/kline?period<span class="o">=</span>not-exist&amp;size<span class="o">=</span>200&amp;symbol<span class="o">=</span>ethjpy
+</code></pre>
+<blockquote>
+<p>期間エラーのとき、下記のようなレスポンスを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1490758171271</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid-parameter"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid period"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight shell tab-shell"><code>GET /market/history/kline?period<span class="o">=</span>1day&amp;size<span class="o">=</span>not-exist&amp;symbol<span class="o">=</span>ethjpy
+</code></pre>
+<blockquote>
+<p>サイズエラーのとき、下記のようなレスポンスを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1490758221221</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid size, valid range: [1,2000]"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight shell tab-shell"><code>GET /market/history/kline?period<span class="o">=</span>1day&amp;size<span class="o">=</span>200&amp;symbol<span class="o">=</span>not-exist
+</code></pre>
+<blockquote>
+<p>取引通貨ペアが存在しない場合は、下記のようなレスポンスを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1490758171271</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid-parameter"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid symbol"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='uri'>URI</h3>
+<p><code>GET /market/history/kline</code></p>
+<h3 id='request-params'>Request Params</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>Y</td>
+<td>string</td>
+<td>取引ペア - btceth</td>
+</tr>
+<tr>
+<td>period</td>
+<td>Y</td>
+<td>string</td>
+<td>チャートタイプ</td>
+</tr>
+<tr>
+<td>size</td>
+<td>N</td>
+<td>int</td>
+<td>サイズ - default=150 max=2000</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-4'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>リクエスト処理結果 [&quot;ok&quot; , &quot;error&quot;]</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>number</td>
+<td>生成応答時間点，单位：ミリ秒</td>
+</tr>
+<tr>
+<td>tick</td>
+<td>object</td>
+<td>KLine データ</td>
+</tr>
+<tr>
+<td>ch</td>
+<td>string</td>
+<td>チャンネル <br> Example: market.$symbol.kline.$period</td>
+</tr>
+</tbody></table>
+<h2 id='ticker'>板データの取得 (Ticker)</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api-cloud.huobi.co.jp/market/detail/merged?symbol=ethjpy"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethjpy.detail.merged"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1499225276950</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1499225271</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1499225271000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mf">1885.0000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mf">1960.0000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mf">1985.0000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mf">1856.0000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">81486.2926</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">42122</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vol"</span><span class="p">:</span><span class="w"> </span><span class="mf">157052744.85708200</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"ask"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> 
+      </span><span class="mf">1885.0000</span><span class="p">,</span><span class="w"> 
+      </span><span class="mf">21.8804</span><span class="w"> 
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"bid"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> 
+      </span><span class="mf">1884.0000</span><span class="p">,</span><span class="w">
+      </span><span class="mf">1.6702</span><span class="w"> 
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>取引ペアがないとき、下記のレスポンスになります</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1490758171271</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid-parameter"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid symbol"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは集約されたチャート情報を返します。</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET /market/detail/merged</code></p>
+<h3 id='query-parameters-4'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>トレードペア, 例えば btcjpy</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-5'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td>リクエスト处理结果,  例えば: &quot;ok&quot;,&quot;error&quot;</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>true</td>
+<td>number</td>
+<td>生成応答時間点，单位：ミリ秒</td>
+</tr>
+<tr>
+<td>tick</td>
+<td>true</td>
+<td>object</td>
+<td>チャートデータ</td>
+</tr>
+<tr>
+<td>ch</td>
+<td>true</td>
+<td>string</td>
+<td>データの所属 channel，例えば： market.btcjpy.detail.merged</td>
+</tr>
+</tbody></table>
+<h2 id='341450fdd0'>すべての取引ペアの取引相場</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api-cloud.huobi.co.jp/market/tickers"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">  
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ts"</span><span class="p">:</span><span class="mi">1510885463001</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:[</span><span class="w">  
+        </span><span class="p">{</span><span class="w">  
+            </span><span class="s2">"open"</span><span class="p">:</span><span class="mf">0.044297</span><span class="p">,</span><span class="w">      </span><span class="err">//</span><span class="w"> </span><span class="err">チャート（日）</span><span class="w"> </span><span class="err">始値</span><span class="w">
+            </span><span class="s2">"close"</span><span class="p">:</span><span class="mf">0.042178</span><span class="p">,</span><span class="w">     </span><span class="err">//</span><span class="w"> </span><span class="err">チャート（日）</span><span class="w"> </span><span class="err">終値</span><span class="w">
+            </span><span class="s2">"low"</span><span class="p">:</span><span class="mf">0.040110</span><span class="p">,</span><span class="w">       </span><span class="err">//</span><span class="w"> </span><span class="err">チャート（日）</span><span class="w"> </span><span class="err">最安値</span><span class="w">
+            </span><span class="s2">"high"</span><span class="p">:</span><span class="mf">0.045255</span><span class="p">,</span><span class="w">      </span><span class="err">//</span><span class="w"> </span><span class="err">チャート（日）</span><span class="w"> </span><span class="err">最高値</span><span class="w">
+            </span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">12880.8510</span><span class="p">,</span><span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="mi">24</span><span class="err">時間の約定量</span><span class="w">
+            </span><span class="s2">"count"</span><span class="p">:</span><span class="mi">12838</span><span class="p">,</span><span class="w">        </span><span class="err">//</span><span class="w"> </span><span class="mi">24</span><span class="err">時間の約定数数</span><span class="w">
+            </span><span class="s2">"vol"</span><span class="p">:</span><span class="mf">563.0388715740</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="mi">24</span><span class="err">時間の取引高</span><span class="w">
+            </span><span class="s2">"symbol"</span><span class="p">:</span><span class="s2">"ethbtc"</span><span class="w">     </span><span class="err">//</span><span class="w"> </span><span class="err">通貨ペア</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">  
+            </span><span class="s2">"open"</span><span class="p">:</span><span class="mf">0.008545</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"close"</span><span class="p">:</span><span class="mf">0.008656</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"low"</span><span class="p">:</span><span class="mf">0.008088</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"high"</span><span class="p">:</span><span class="mf">0.009388</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">88056.1860</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"count"</span><span class="p">:</span><span class="mi">16077</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"vol"</span><span class="p">:</span><span class="mf">771.7975953754</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"symbol"</span><span class="p">:</span><span class="s2">"ltcbtc"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントはすべての取引ペアの取引相場を取得できます。</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>GET /market/tickers</code></p>
+<h3 id='query-parameters-5'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='response-data-6'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td>リクエスト处理结果,  例えば: &quot;ok&quot;,&quot;error&quot;</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>true</td>
+<td>number</td>
+<td>生成応答時間点，单位：ミリ秒</td>
+</tr>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>object</td>
+<td>取引相場のリスト</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+注意：通貨ペアがまだ取引を生成していない場合、返されたデータは内部にあります `open` `close` `high` `low` `amount` `count` `vol` の値は全て `null`
+</aside>
+<h2 id='depth'>マーケットデプス (Depth)</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api-cloud.huobi.co.jp/market/depth?symbol=btcjpy&amp;type=step1"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcjpy.depth.step1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489472598812</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489464585407</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489464585407</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7964</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0678</span><span class="p">],</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="p">[</span><span class="err">価格</span><span class="p">,</span><span class="w"> </span><span class="err">注文数量</span><span class="p">]</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7963</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9162</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7961</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7960</span><span class="p">,</span><span class="w"> </span><span class="mf">12.8898</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7958</span><span class="p">,</span><span class="w"> </span><span class="mf">1.2</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7955</span><span class="p">,</span><span class="w"> </span><span class="mf">2.1009</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7954</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4708</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7953</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0564</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7951</span><span class="p">,</span><span class="w"> </span><span class="mf">2.8031</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7950</span><span class="p">,</span><span class="w"> </span><span class="mf">13.7785</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7949</span><span class="p">,</span><span class="w"> </span><span class="mf">0.125</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7948</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7942</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4337</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7940</span><span class="p">,</span><span class="w"> </span><span class="mf">6.1612</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7936</span><span class="p">,</span><span class="w"> </span><span class="mf">0.02</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7935</span><span class="p">,</span><span class="w"> </span><span class="mf">1.3575</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7933</span><span class="p">,</span><span class="w"> </span><span class="mf">2.002</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7932</span><span class="p">,</span><span class="w"> </span><span class="mf">1.3449</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7930</span><span class="p">,</span><span class="w"> </span><span class="mf">10.2974</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7929</span><span class="p">,</span><span class="w"> </span><span class="mf">3.2226</span><span class="p">]</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7979</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0736</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7980</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0292</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7981</span><span class="p">,</span><span class="w"> </span><span class="mf">5.5652</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7986</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2416</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7990</span><span class="p">,</span><span class="w"> </span><span class="mf">1.9970</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7995</span><span class="p">,</span><span class="w"> </span><span class="mf">0.88</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">7996</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0212</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8000</span><span class="p">,</span><span class="w"> </span><span class="mf">9.2609</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8002</span><span class="p">,</span><span class="w"> </span><span class="mf">0.02</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8008</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8010</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8735</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8011</span><span class="p">,</span><span class="w"> </span><span class="mf">2.36</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8012</span><span class="p">,</span><span class="w"> </span><span class="mf">0.02</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8014</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1067</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8015</span><span class="p">,</span><span class="w"> </span><span class="mf">12.9118</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8016</span><span class="p">,</span><span class="w"> </span><span class="mf">2.5206</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8017</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0166</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8018</span><span class="p">,</span><span class="w"> </span><span class="mf">1.3218</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8019</span><span class="p">,</span><span class="w"> </span><span class="mf">0.01</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mi">8020</span><span class="p">,</span><span class="w"> </span><span class="mf">13.6584</span><span class="p">]</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight shell tab-shell"><code>GET /market/depth?symbol<span class="o">=</span>btcjpy&amp;type<span class="o">=</span>not-exist
+</code></pre>
+<blockquote>
+<p>集約レベルがないとき、下記のレスポンスになります</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1490759358099</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid-parameter"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid type"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは集約されたチャート情報を返します。</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>GET /market/depth</code></p>
+<h3 id='query-parameters-6'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>取引ペア, 例えば btcjpy</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>集約レベル, [step0, step1, step2, step3, step4, step5]</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+注意 - step0の場合は注文の集約しません。
+</aside>
+<h3 id='response-data-7'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td>リクエスト处理结果, [&quot;ok&quot;,&quot;error&quot;]</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>true</td>
+<td>number</td>
+<td>生成応答時間点，单位：ミリ秒</td>
+</tr>
+<tr>
+<td>tick</td>
+<td>true</td>
+<td>object</td>
+<td>チャートデータ</td>
+</tr>
+<tr>
+<td>ch</td>
+<td>true</td>
+<td>string</td>
+<td>データの所属 channel，例えば： market.btcjpy.detail.merged</td>
+</tr>
+</tbody></table>
+<h2 id='31d30b08be'>取引詳細データの取得</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api-cloud.huobi.co.jp/market/trade?symbol=ethjpy"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcjpy.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489473346905</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">600848670</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489464451000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">600848670</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0122</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489464451000</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>取引ペアがないとき、下記のレスポンスになります</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1490759506429</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid-parameter"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid symbol"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは集約されたチャート情報を返します。</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>GET /market/trade</code></p>
+<h3 id='query-parameters-7'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>トレードペア, 例えば btcjpy</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-8'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td>リクエスト处理结果,  例えば: &quot;ok&quot;,&quot;error&quot;</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>true</td>
+<td>number</td>
+<td>生成応答時間点，单位：ミリ秒</td>
+</tr>
+<tr>
+<td>tick</td>
+<td>true</td>
+<td>object</td>
+<td>取引データ</td>
+</tr>
+<tr>
+<td>ch</td>
+<td>true</td>
+<td>string</td>
+<td>データの所属 channel，例えば： market.btcjpy.detail.merged</td>
+</tr>
+</tbody></table>
+<h2 id='15f00772c5'>取引履歴の取得</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+      <span class="s2">"https://api-cloud.huobi.co.jp/market/history/trade?symbol=ethjpy"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethjpy.trade.detail"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1502448925216</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">31459998</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1502448920106</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">17592256642623</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.04</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1997</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1502448920106</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>取引ペアがないとき、下記のレスポンスになります</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1490758171271</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid-parameter"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid symbol"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは集約されたチャート情報を返します。</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>GET /market/history/trade</code></p>
+<h3 id='query-parameters-8'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>トレードペア, 例えば btcjpy</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>データサイズ, Range: {1, 2000}</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-9'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td>リクエスト处理结果,  例えば: &quot;ok&quot;,&quot;error&quot;</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>true</td>
+<td>number</td>
+<td>生成応答時間点，单位：ミリ秒</td>
+</tr>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>object</td>
+<td>約定記録のリスト</td>
+</tr>
+<tr>
+<td>ch</td>
+<td>true</td>
+<td>string</td>
+<td>データの所属 channel，例えば： market.$symbol.trade.detail</td>
+</tr>
+</tbody></table>
+<h1 id='f56e112e8f'>アカウント関連</h1><h2 id='eda1f800b0'>ユーザアカウント</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api-cloud.huobi.co.jp/v1/account/accounts"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">100009</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spot"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"working"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"user-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントはユーザのアカウント情報を返します。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>GET /v1/account/accounts</code></p>
+<h3 id='query-parameters-9'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='response-data-10'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td>アカウントID</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>アカウントタイプ, spot - スポットアカウント</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td>アカウントステータス, Range: {&quot;work&quot;,&quot;lock&quot;}</td>
+</tr>
+<tr>
+<td>user-id</td>
+<td>true</td>
+<td>int</td>
+<td>ユーザID</td>
+</tr>
+</tbody></table>
+<h2 id='c617e5c5d4'>残高照合</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api-cloud.huobi.co.jp/v1/account/accounts/{account-id}/balance"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">100009</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spot"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"working"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"list"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jpy"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trade"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500009195917.4362872650"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jpy"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"frozen"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"328048.1199920000"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"etc"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trade"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"499999894616.1302471000"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"etc"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"frozen"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9786.6783000000"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eth"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trade"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"499999894616.1302471000"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eth"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"frozen"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9786.6783000000"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"user-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントはユーザの残高情報を返します。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-10'>HTTP Request</h3>
+<p><code>GET /v1/account/accounts/{account-id}/balance</code></p>
+<h3 id='query-parameters-10'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>　account-id</td>
+<td>true</td>
+<td>アカウントID</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-11'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td>アカウントID</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td>アカウントステータス, Range: {&quot;work&quot;,&quot;lock&quot;}</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>アカウントタイプ, spot - スポットアカウント</td>
+</tr>
+<tr>
+<td>list</td>
+<td>true</td>
+<td>list</td>
+<td>残高情報</td>
+</tr>
+</tbody></table>
+<h4 id='list'>Listのデータ構造</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>balance</td>
+<td>true</td>
+<td>long</td>
+<td>残高</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>true</td>
+<td>string</td>
+<td>仮想通貨</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>タイプ, trade: トレード残高，frozen: 凍結残高</td>
+</tr>
+</tbody></table>
+<h1 id='c1707c99a3'>取引関連</h1><h2 id='bea621a911'>注文実行</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/orders/place"</span> <span class="se">\</span>
+     -d <span class="se">\</span>
+<span class="o">{</span>
+   <span class="s2">"account-id"</span>: <span class="s2">"100009"</span>,
+   <span class="s2">"amount"</span>: <span class="s2">"10.1"</span>,
+   <span class="s2">"price"</span>: <span class="s2">"100.1"</span>,
+   <span class="s2">"source"</span>: <span class="s2">"api"</span>,
+   <span class="s2">"symbol"</span>: <span class="s2">"ethjpy"</span>,
+   <span class="s2">"type"</span>: <span class="s2">"buy-limit"</span>
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59378"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは注文を出すAPIです。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-11'>HTTP Request</h3>
+<p><code>GET /v1/order/orders/place</code></p>
+<h3 id='query-parameters-11'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>アカウント ID，accountsを使用して獲得する方法。仮想通貨ペアのトレードを使用‘spot’アカウントのaccountid</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>指値の表示注文数量，成り行きで買う時は幾らで買うかを表示，成り行きで売る時に何枚売るかを表示</td>
+</tr>
+<tr>
+<td>price</td>
+<td>false</td>
+<td>注文価格，成り行き注文はこのパラメーターを通さない</td>
+</tr>
+<tr>
+<td>source</td>
+<td>false</td>
+<td>注文のソース</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>取引通貨ペア</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>注文タイプ <br> buy-market：成り行き買い <br> sell-market：成り行き売り<br>buy-limit：指値買い<br>sell-limit：指値売り<br>buy-ioc：IOC買い注文<br>sell-ioc：IOC売り注文<br>buy-limit-maker<br>sell-limit-maker</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+buy-limit-maker<br>
+
+“注文価格”>=“市場最低売り価格”である場合，注文送信後，システムはこの注文を約定拒否します。<br>
+
+“注文価格”<“市場最低売り価格”である場合，送信成功後，この注文はシステムによって受け入れられます。<br>
+</aside>
+
+<aside class="success">
+sell-limit-maker<br>
+
+“注文価格”<=“市場最高買い入れ価格” である場合，注文送信後，システムはこの注文を受け入れることを拒否します。<br>
+
+“注文価格”>“市場最高買い入れ価格” である場合， 送信成功後，この注文はシステムによって受け入れられます。
+</aside>
+<h3 id='response-data-12'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>false</td>
+<td>string</td>
+<td>订单ID</td>
+</tr>
+</tbody></table>
+<h2 id='c9b851ba3b'>未約定注文一覧</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+    <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/openOrders"</span> 
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5454937</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethjpy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"account-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">30925</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.000000000000000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.453000000000000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1530604762277</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sell-limit"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"filled-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"filled-cash-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"filled-fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"submitted"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは未約定注文一覧を返します。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-12'>HTTP Request</h3>
+<p><code>GET /v1/order/openOrders</code></p>
+<h3 id='query-parameters-12'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>アカウントID</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>取引通貨ペア</td>
+</tr>
+<tr>
+<td>side</td>
+<td>false</td>
+<td>取引方向, Range: {&#39;buy&#39;, &#39;sell&#39;}</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>必要な記録数</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-13'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td>注文番号</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>取引通貨ペア</td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td>注文価格</td>
+</tr>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>int</td>
+<td>注文時間（ミリ秒</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>注文タイプ, Range: {buy-market, sell-market, buy-limit, sell-limit, buy-ioc, sell-ioc}</td>
+</tr>
+<tr>
+<td>filled-amount</td>
+<td>true</td>
+<td>string</td>
+<td>注文時間(ミリ秒)<br>部分取引注文でない場合、このフィールドは0 になります</td>
+</tr>
+<tr>
+<td>filled-cash-amount</td>
+<td>true</td>
+<td>string</td>
+<td>約定された部品の注文価格（=約定された注文の数量x注文の価格）<br> 部分取引注文でない場合、このフィールドは0になります</td>
+</tr>
+<tr>
+<td>filled-fees</td>
+<td>true</td>
+<td>string</td>
+<td>取引の一部における手数料<br>部分取引注文でない場合、このフィールドは0 になります</td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td>注文ソース, Range: {sys, web, api, app}</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td>この注文ステータス, Range: {submitted(約定済), partial-filled(部分約定), cancelling(キャンセル)}</td>
+</tr>
+</tbody></table>
+<h2 id='75e116b1eb'>注文キャンセル</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/orders/{order-id}/submitcancel"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">59378</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>本APIはキャンセルリクエストを送信します。実際のキャンセル結果は注文詳細APIにてご確認してください。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-13'>HTTP Request</h3>
+<p><code>GET /v1/order/orders/place</code></p>
+<h3 id='query-parameters-13'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order-id</td>
+<td>true</td>
+<td>注文ID</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-14'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td>リクエストの状態</td>
+</tr>
+<tr>
+<td>data</td>
+<td>false</td>
+<td>string</td>
+<td>注文ID</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+status=OK、出金依頼が成功したことを示します。<br>
+注文が正常に取り消された場合は、注文状況照会インターフェースを呼び出して注文状況を照会してください。
+</aside>
+<h2 id='7fd8579ed8'>注文の一括キャンセル</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/orders/batchcancel"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"3"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>一部失敗する場合、下記のようなレスポンスが返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"3"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"failed"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">" Invalid record"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"order-id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"base-record-invalid"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>本APIは注文の一括キャンセルを実行します。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-14'>HTTP Request</h3>
+<p><code>POST /v1/order/orders/batchcancel</code></p>
+<h3 id='query-parameters-14'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='response-data-15'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td>リクエストの状態</td>
+</tr>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>string</td>
+<td>キャンセルの結果</td>
+</tr>
+</tbody></table>
+<h2 id='4f39b268d3'>条件付き注文の一括キャンセル</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/orders/batchCancelOpenOrders"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"success-count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"failed-count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5454600</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>本APIは条件付き注文を一括でキャンセルする。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-15'>HTTP Request</h3>
+<p><code>POST /v1/order/orders/batchCancelOpenOrders</code></p>
+<h3 id='query-parameters-15'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>アカウントID</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>false</td>
+<td>取引通貨ペア, 単一トレードペアの文字列は、デフォルトでは条件が満たされていない全ての注文を返します</td>
+</tr>
+<tr>
+<td>side</td>
+<td>false</td>
+<td>取引方向 , Range: {“buy”,“sell”}， デフォルトでは、条件が満たされていない全ての注文が返されます。</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>必要な記録数, default: 100, Range: {0,100}</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-16'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success-count</td>
+<td>true</td>
+<td>int</td>
+<td>キャンセル注文成功数</td>
+</tr>
+<tr>
+<td>failed-count</td>
+<td>true</td>
+<td>int</td>
+<td>キャンセル注文失敗数</td>
+</tr>
+<tr>
+<td>next-id</td>
+<td>true</td>
+<td>long</td>
+<td>キャンセル基準を満たす次の注文番号</td>
+</tr>
+</tbody></table>
+<h2 id='ac82af1ef4'>注文の詳細の照会</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+    <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/orders/{order-id}"</span> 
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">59378</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethjpy"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"account-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">100009</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.1000000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.1000000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494901162595</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"field-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.1000000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"field-cash-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1011.0100000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"field-fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0202000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"finished-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494901400468</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"api"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"filled"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"canceled-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"batch"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは注文の詳細情報を返します。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-16'>HTTP Request</h3>
+<p><code>GET /v1/order/orders/{order-id}</code></p>
+<h3 id='query-parameters-16'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order-id</td>
+<td>true</td>
+<td>注文ID</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-17'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>long</td>
+<td>アカウント ID</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>string</td>
+<td>注文数量</td>
+</tr>
+<tr>
+<td>canceled-at</td>
+<td>false</td>
+<td>long</td>
+<td>注文キャンセル時間</td>
+</tr>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>long</td>
+<td>注文作成時間</td>
+</tr>
+<tr>
+<td>field-amount</td>
+<td>true</td>
+<td>string</td>
+<td>約定数量</td>
+</tr>
+<tr>
+<td>field-cash-amount</td>
+<td>true</td>
+<td>string</td>
+<td>約定総額</td>
+</tr>
+<tr>
+<td>field-fees</td>
+<td>true</td>
+<td>string</td>
+<td>約定手数料（買い入れは仮想通貨のために，売り出しは法定通貨のために）</td>
+</tr>
+<tr>
+<td>finished-at</td>
+<td>false</td>
+<td>long</td>
+<td>注文の終了時間は約定した時間ではなく、キャンセル済の時も含みます</td>
+</tr>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td>注文ID</td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td>注文価格</td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td>注文ソース, default: api</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td>注文ステータス, Range: {&quot;submitting&quot; // 送信中, &quot;submitted&quot;　// 送信済, &quot;partial-filled&quot; // 部分約定, &quot;partial-canceled&quot; //部分約定キャンセル, &quot;filled&quot; //完全約定, canceled キャンセル済み</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>取引通貨ペア</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>注文種類, Range: {&quot;buy-market&quot; // 成り行き買い, &quot;sell-market&quot; //成り行き売り, &quot;buy-limit&quot; //指値買い, &quot;sell-limit&quot; //指値売り, &quot;buy-ioc&quot; //IOC買い注文, &quot;sell-ioc&quot; //IOC売り注文</td>
+</tr>
+</tbody></table>
+<h2 id='f686f1643c'>注文の約定詳細の照会</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+  <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/orders"</span> 
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">59378</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethjpy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"account-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">100009</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.1000000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.1000000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494901162595</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"field-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.1000000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"field-cash-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1011.0100000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"field-fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0202000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"finished-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494901400468</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"user-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"api"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"filled"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"canceled-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"batch"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは注文の約定詳細情報を返します。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-17'>HTTP Request</h3>
+<p><code>GET /v1/order/orders</code></p>
+<h3 id='query-parameters-17'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>取引通貨ペア</td>
+</tr>
+<tr>
+<td>types</td>
+<td>false</td>
+<td>オーダーのタイプの組み合わせ照会、複数可、カンマ区切り, Range: {&quot;buy-market&quot; //成り行き買い, &quot;sell-market&quot; //成り行き売り, &quot;buy-limit&quot; //指値買い, &quot;sell-limit&quot; //指値売り, &quot;buy-ioc&quot; //IOC買い注文, &quot;sell-ioc&quot; //IOC売り注文</td>
+</tr>
+<tr>
+<td>start-date</td>
+<td>false</td>
+<td>開始日時照会、 日時フォマットyyyy-mm-dd</td>
+</tr>
+<tr>
+<td>end-date</td>
+<td>false</td>
+<td>終了日時照会、 日時フォマットyyyy-mm-dd</td>
+</tr>
+<tr>
+<td>states</td>
+<td>true</td>
+<td>オーダー状態、　Range: {&quot;submitted&quot; //提出済み, &quot;partial-filled&quot; //部分約定, &quot;partial-canceled&quot; // 部分約定キャンセル, &quot;filled&quot; // 完全約定, &quot;canceled&quot; //キャンセル済み</td>
+</tr>
+<tr>
+<td>from</td>
+<td>false</td>
+<td>開始 ID照会</td>
+</tr>
+<tr>
+<td>direct</td>
+<td>false</td>
+<td>方向照会, prev 前，next 後ろ</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>大小記録の照会</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-18'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>long</td>
+<td>アカウント ID</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>string</td>
+<td>注文数量</td>
+</tr>
+<tr>
+<td>canceled-at</td>
+<td>false</td>
+<td>long</td>
+<td>キャンセル申請を受ける時間</td>
+</tr>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>long</td>
+<td>注文作成時間</td>
+</tr>
+<tr>
+<td>field-amount</td>
+<td>true</td>
+<td>string</td>
+<td>約定数量</td>
+</tr>
+<tr>
+<td>field-cash-amount</td>
+<td>true</td>
+<td>string</td>
+<td>約定総金額</td>
+</tr>
+<tr>
+<td>field-fees</td>
+<td>true</td>
+<td>string</td>
+<td>約定済み手数料（買いは仮想通貨の為に，売りはお金のために）</td>
+</tr>
+<tr>
+<td>finished-at</td>
+<td>false</td>
+<td>long</td>
+<td>最終的な約定時間</td>
+</tr>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td>注文ID</td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td>注文価格</td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td>注文ソース, default: api</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td>注文ステータス</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>取引通貨ペア</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>注文タイプ</td>
+</tr>
+</tbody></table>
+<h2 id='e4de6d1a79'>約定履歴の照会</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+  <span class="s2">"https://api-cloud.huobi.co.jp/v1/orders/matchresults"</span> 
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">29555</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"order-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">59378</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"match-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">59335</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethjpy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"api"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.1000000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"filled-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.9845000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"filled-fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0019690000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494901400487</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは約定履歴を返します。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-18'>HTTP Request</h3>
+<p><code>GET /v1/orders/matchresults</code></p>
+<h3 id='query-parameters-18'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>取引通貨ペア</td>
+</tr>
+<tr>
+<td>types</td>
+<td>false</td>
+<td>オーダータイプの組み合わせ照会，複数可, カンマ区切り</td>
+</tr>
+<tr>
+<td>start-date</td>
+<td>false</td>
+<td>開始日の照会, 日時フォマットyyyy-mm-dd, Range: [-61日, Now]</td>
+</tr>
+<tr>
+<td>end-date</td>
+<td>false</td>
+<td>終了日の照会, 日時フォマットyyyy-mm-dd</td>
+</tr>
+<tr>
+<td>from</td>
+<td>false</td>
+<td>開始日の照会 ID</td>
+</tr>
+<tr>
+<td>direct</td>
+<td>false</td>
+<td>照会方向 default: next, Range: {&quot;prev&quot;, &quot;next&quot;}</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>大小記録の照会, Range: [0, 100]</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-19'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>long</td>
+<td>約定時間</td>
+</tr>
+<tr>
+<td>filled-amount</td>
+<td>true</td>
+<td>string</td>
+<td>約定数量</td>
+</tr>
+<tr>
+<td>filled-fees</td>
+<td>true</td>
+<td>string</td>
+<td>約定手数料</td>
+</tr>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td>約定注文記録ID</td>
+</tr>
+<tr>
+<td>match-id</td>
+<td>true</td>
+<td>long</td>
+<td>マッチングID</td>
+</tr>
+<tr>
+<td>order-id</td>
+<td>true</td>
+<td>long</td>
+<td>注文 ID</td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td>約定価格</td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td>注文ソース, default: api</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>取引通貨ペア</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>注文タイプ</td>
+</tr>
+</tbody></table>
+<h1 id='c0360c450d'>ウォレット関連</h1>
+<aside class="success">
+引出しのみサポート
+</aside>
+<h2 id='b6ff136b7b'>ステータス一覧</h2><h3 id='a6cbe7df66'>仮想通貨出金ステータスの定義：</h3>
+<table><thead>
+<tr>
+<th>ステータス</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>submitted</td>
+<td>提出済</td>
+</tr>
+<tr>
+<td>reexamine</td>
+<td>審査中</td>
+</tr>
+<tr>
+<td>canceled</td>
+<td>キャンセル済</td>
+</tr>
+<tr>
+<td>pass</td>
+<td>承認</td>
+</tr>
+<tr>
+<td>reject</td>
+<td>拒否</td>
+</tr>
+<tr>
+<td>pre-transfer</td>
+<td>处理中</td>
+</tr>
+<tr>
+<td>wallet-transfer</td>
+<td>送金済</td>
+</tr>
+<tr>
+<td>wallet-reject</td>
+<td>ウオレットの拒否</td>
+</tr>
+<tr>
+<td>confirmed</td>
+<td>ブロックチェーン上で承認済</td>
+</tr>
+<tr>
+<td>confirm-error</td>
+<td>ブロックチェーン上で承認エラー</td>
+</tr>
+<tr>
+<td>repealed</td>
+<td>キャンセル済</td>
+</tr>
+</tbody></table>
+<h3 id='56b3280b64'>仮想通貨入金ステータスの定義：</h3>
+<table><thead>
+<tr>
+<th>ステータス</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>unknown</td>
+<td>不明</td>
+</tr>
+<tr>
+<td>confirming</td>
+<td>確認中</td>
+</tr>
+<tr>
+<td>confirmed</td>
+<td>確認済み</td>
+</tr>
+<tr>
+<td>safe</td>
+<td>完了</td>
+</tr>
+<tr>
+<td>orphan</td>
+<td>独立</td>
+</tr>
+</tbody></table>
+<h2 id='0ee899dbb8'>仮想通貨の出金申請</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     <span class="s2">"https://api-cloud.huobi.co.jp/v1/dw/withdraw/api/create"</span> <span class="se">\</span>
+     -d <span class="se">\</span>
+<span class="o">{</span>
+  <span class="s2">"address"</span>: <span class="s2">"0xde709f2102306220921060314715629080e2fb77"</span>,
+  <span class="s2">"amount"</span>: <span class="s2">"0.05"</span>,
+  <span class="s2">"currency"</span>: <span class="s2">"eth"</span>,
+  <span class="s2">"fee"</span>: <span class="s2">"0.01"</span>
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">700</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>本APIは仮想通貨の出金申請を送信する。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-19'>HTTP Request</h3>
+<p><code>GET /v1/dw/withdraw/api/create</code></p>
+<h3 id='query-parameters-19'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address</td>
+<td>true</td>
+<td>string</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>string</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>true</td>
+<td>string</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>false</td>
+<td>string</td>
+</tr>
+<tr>
+<td>addr-tag</td>
+<td>false</td>
+<td>string</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-20'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>false</td>
+<td>long</td>
+<td>出金レコードID</td>
+</tr>
+</tbody></table>
+<h2 id='c1681207bc'>仮想通貨の出金のキャンセル</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     <span class="s2">"https://api-cloud.huobi.co.jp/v1/dw/withdraw-virtual/{withdraw-id}/cancel"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">700</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>本APIは仮想通貨出金のキャンセルリクエストを送信する。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-20'>HTTP Request</h3>
+<p><code>GET /v1/dw/withdraw-virtual/{withdraw-id}/cancel</code></p>
+<h3 id='query-parameters-20'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>withdraw-id</td>
+<td>true</td>
+<td>出金ID，pathの中に記入</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-21'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>false</td>
+<td>string</td>
+<td>出金レコードID</td>
+</tr>
+</tbody></table>
+<h2 id='0091062ee7'>入出金記録</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+     <span class="s2">"https://api-cloud.huobi.co.jp/v1/query/deposit-withdraw"</span> 
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1171</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deposit"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xrp"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"tx-hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ed03094b84eafbe4bc16e7ef766ee959885ee5bcb265872baaa9c64e1cf86c2b"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">7.457467</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rae93V8d2mdoUQHwBDBdM4NHCMehRJAsbm"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address-tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100040"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"safe"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1510912472199</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1511145876575</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは入出金記録を返します。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-21'>HTTP Request</h3>
+<p><code>GET /v1/query/deposit-withdraw?currency=xrp&amp;type=deposit&amp;from=5&amp;size=12</code></p>
+<h3 id='query-parameters-21'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>currency</td>
+<td>true</td>
+<td>銘柄</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>&#39;deposit&#39; or &#39;withdraw&#39;</td>
+</tr>
+<tr>
+<td>from</td>
+<td>false</td>
+<td>照会開始 ID</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>大小記録の照会</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-22'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>long</td>
+<td>タイプ &#39;deposit&#39; &#39;withdraw&#39;</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>true</td>
+<td>string</td>
+<td>銘柄</td>
+</tr>
+<tr>
+<td>tx-hash</td>
+<td>true</td>
+<td>string</td>
+<td>トレードハッシュ</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>long</td>
+<td>個数</td>
+</tr>
+<tr>
+<td>address</td>
+<td>true</td>
+<td>string</td>
+<td>アドレス</td>
+</tr>
+<tr>
+<td>address-tag</td>
+<td>true</td>
+<td>string</td>
+<td>アドレスラベル</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>true</td>
+<td>long</td>
+<td>手数料</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td>ステータス ステータスは下の表を参考に</td>
+</tr>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>long</td>
+<td>開始時間</td>
+</tr>
+<tr>
+<td>updated-at</td>
+<td>true</td>
+<td>long</td>
+<td>最後に更新した時間</td>
+</tr>
+</tbody></table>
+<h1 id='044106d39a'>エラーコード</h1><h2 id='api'>マーケット関連API</h2>
+<table><thead>
+<tr>
+<th>エラーコード</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bad-request</td>
+<td>リクエストエラー</td>
+</tr>
+<tr>
+<td>invalid-parameter</td>
+<td>パラメーターエラー</td>
+</tr>
+<tr>
+<td>invalid-command</td>
+<td>命令エラー</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+code の具体的な詳細については `err-msg`にて対応しているもの参照ください.
+</aside>
+<h2 id='api-2'>取引関連API</h2>
+<table><thead>
+<tr>
+<th>エラーコード</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>base-symbol-error</td>
+<td>トレードペアが存在していない</td>
+</tr>
+<tr>
+<td>base-currency-error</td>
+<td>銘柄が存在していない</td>
+</tr>
+<tr>
+<td>base-date-error</td>
+<td>日時フォマットのエラー</td>
+</tr>
+<tr>
+<td>account-transfer-balance-insufficient-error</td>
+<td>残高不足により凍結できません</td>
+</tr>
+<tr>
+<td>bad-argument</td>
+<td>パラメーターの期限切れ</td>
+</tr>
+<tr>
+<td>api-signature-not-valid</td>
+<td>API署名エラー</td>
+</tr>
+<tr>
+<td>gateway-internal-error</td>
+<td>システムビジー，少し時間をあけて再度お試しください</td>
+</tr>
+<tr>
+<td>security-require-assets-password</td>
+<td>資金パスワードの入力が必要</td>
+</tr>
+<tr>
+<td>audit-failed</td>
+<td>注文失敗</td>
+</tr>
+<tr>
+<td>ad-ethereum-address</td>
+<td>有効なETHのアドレスを入力してください</td>
+</tr>
+<tr>
+<td>order-accountbalance-error</td>
+<td>アカウント残高不足</td>
+</tr>
+<tr>
+<td>order-limitorder-price-error</td>
+<td>指値の注文価格が制限を超えている</td>
+</tr>
+<tr>
+<td>order-limitorder-amount-error</td>
+<td>指値の注文量が制限を超えている</td>
+</tr>
+<tr>
+<td>order-orderprice-precision-error</td>
+<td>注文価格が制限精度を超えている</td>
+</tr>
+<tr>
+<td>order-orderamount-precision-error</td>
+<td>注文量が制限精度を超えている</td>
+</tr>
+<tr>
+<td>order-marketorder-amount-error</td>
+<td>注文量が制限を超えている</td>
+</tr>
+<tr>
+<td>order-queryorder-invalid</td>
+<td>この注文を見つけることができない</td>
+</tr>
+<tr>
+<td>order-orderstate-error</td>
+<td>注文ステータスエラー</td>
+</tr>
+<tr>
+<td>order-datelimit-error</td>
+<td>照会時間制限を超えた</td>
+</tr>
+<tr>
+<td>order-update-error</td>
+<td>注文の更新失敗</td>
+</tr>
+</tbody></table>
+<h1 id='websocket'>Websocket共通</h1><h2 id='web-ssl'>Webソケットの接続 (SSL)</h2>
+<blockquote>
+<p>wss://api-cloud.huobi.co.jp/ws</p>
+</blockquote>
+<h2 id='d4d63da93d'>データ</h2>
+<p>すべての戻りデータは解凍する必要があります。</p>
+
+<p>リンク: <a href="https://github.com/nodeca/pako">pako</a></p>
+<h2 id='4c3a8f8278'>ライブラリー</h2>
+<p>リンク: <a href="https://github.com/websockets/ws">ws</a> by Node.js</p>
+<h2 id='topic'>Topic</h2>
+<p>リクエストや購読には、<code>topic</code>を使います。主なトピックは下記の通りです。</p>
+
+<table><thead>
+<tr>
+<th>type</th>
+<th>topic</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>KLine</td>
+<td>market.$symbol.kline.$period</td>
+<td>$period ：{ 1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year }</td>
+</tr>
+<tr>
+<td>Market Depth</td>
+<td>market.$symbol.depth.$type</td>
+<td>$type ：{ step0, step1, step2, step3, step4, step5 } （depths 0-5）</td>
+</tr>
+<tr>
+<td>Trade Detail</td>
+<td>market.$symbol.trade.detail</td>
+<td></td>
+</tr>
+<tr>
+<td>Market Detail</td>
+<td>market.$symbol.detail</td>
+<td></td>
+</tr>
+<tr>
+<td>Market Tickers</td>
+<td>market.tickers</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p><code>$symbol</code> ： { ethbtc, ltcbtc, etcbtc, bccbtc ... }</p>
+<h2 id='86af4bc374'>ハートビート</h2>
+<blockquote>
+<p>WebSocket Client Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"ping"</span><span class="p">:</span><span class="w"> </span><span class="mi">18212558000</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>WebSocket Server response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"pong"</span><span class="p">:</span><span class="w"> </span><span class="mi">18212558000</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>要求メッセージの種類が<code>LONG</code>でない場合、websocketサーバーは次のように応答します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1492420473027</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid ping"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside class="success">
+接続状態を維持するために、クライアントおよびサーバーは定期的にハートビートを送り合います。
+</aside>
+<h2 id='90aa7c4e14'>リクエスト</h2>
+<blockquote>
+<p>リクエストを送信する</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topic to req"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generate by client"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside class="sucess">
+リクエストは上述のトピックのように使えます。
+</aside>
+
+<blockquote>
+<p>正しいリクエスト</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btccny.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.6206</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"count"</span><span class="p">:</span><span class="w">  </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494465840</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"open"</span><span class="p">:</span><span class="w">   </span><span class="mf">9887.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"close"</span><span class="p">:</span><span class="w">  </span><span class="mf">9885.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"low"</span><span class="p">:</span><span class="w">    </span><span class="mf">9885.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"high"</span><span class="p">:</span><span class="w">   </span><span class="mf">9887.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vol"</span><span class="p">:</span><span class="w">    </span><span class="mf">16021.632026</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.2124</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"count"</span><span class="p">:</span><span class="w">  </span><span class="mi">6</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494465900</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"open"</span><span class="p">:</span><span class="w">   </span><span class="mf">9885.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"close"</span><span class="p">:</span><span class="w">  </span><span class="mf">9880.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"low"</span><span class="p">:</span><span class="w">    </span><span class="mf">9880.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"high"</span><span class="p">:</span><span class="w">   </span><span class="mf">9885.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vol"</span><span class="p">:</span><span class="w">    </span><span class="mf">21859.023500</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>間違ったリクエスト</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.invalidsymbo.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.invalidsymbol.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494483996521</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='9a2e6232e2'>トピックの購読</h2>
+<blockquote>
+<p>購読メッセージ</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btccny.kline.1min"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btccny.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474081631</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside class="success">
+データを受信するには、まず「sub」メッセージを送信する必要があります。
+購読した後、サーバー側で変更や更新があった場合、そのデータを自動的に受信できます。
+</aside>
+
+<blockquote>
+<p>受信するメッセージは次のようなJSONが返されます。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btccny.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474082831</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489464480</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vol"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>シンボルが間違った場合は、下記のようなエラーメッセージが返ってきます。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id2"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.invalidsymbol.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494301904959</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Topicが間違った場合は、下記のようなエラーメッセージになります。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id3"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.btccny.kline.3min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494310283622</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='4f67d6e1d9'>購読の解除</h2>
+<blockquote>
+<p>解除コマンドは下記のようなメッセージです。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topic to unsub"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generate by client"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>成功したリクエスト</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcjpy.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id4"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id4"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"unsubbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btccny.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494326028889</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>すでに解除済みの場合は、下記のようなエラーメッセージを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id5"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unsub with not subbed topic market.btccny.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494326217428</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>存在しないトピックを解除する場合は、下記のようなエラーメッセージを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id5"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unsub with not subbed topic not-exists-topic"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494326318809</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>チャンネルからのデータ受信を停止するには、「unsub」メッセージを送信する必要があります。</p>
+<h1 id='websocket-2'>Websocketリファレンス</h1><h2 id='d286268be5'>ローソク足 データ</h2>
+<blockquote>
+<p>コマンド送信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.symbol.kline.period"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generate by client"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>購読結果レスポンス</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474081631</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>データ受信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474082831</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489464480</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vol"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='market-symbol-kline-period'><code>market.$symbol$.kline.$period$</code></h3>
+<table><thead>
+<tr>
+<th>key</th>
+<th>necessary</th>
+<th>type</th>
+<th>description</th>
+<th>value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>Pairs</td>
+<td>ethbtc, ltcbtc...</td>
+</tr>
+<tr>
+<td>period</td>
+<td>true</td>
+<td>string</td>
+<td>KLine period</td>
+<td>1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year</td>
+</tr>
+</tbody></table>
+<h2 id='kline'>KLineデータ</h2>
+<blockquote>
+<p>コマンド送信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>データ受信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.4805</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"count"</span><span class="p">:</span><span class="w">  </span><span class="mi">27</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494478080</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"open"</span><span class="p">:</span><span class="w">   </span><span class="mf">10050.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"close"</span><span class="p">:</span><span class="w">  </span><span class="mf">10058.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"low"</span><span class="p">:</span><span class="w">    </span><span class="mf">10050.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"high"</span><span class="p">:</span><span class="w">   </span><span class="mf">10058.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vol"</span><span class="p">:</span><span class="w">    </span><span class="mf">175798.757708</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">15.7389</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"count"</span><span class="p">:</span><span class="w">  </span><span class="mi">28</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494478140</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"open"</span><span class="p">:</span><span class="w">   </span><span class="mf">10058.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"close"</span><span class="p">:</span><span class="w">  </span><span class="mf">10060.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"low"</span><span class="p">:</span><span class="w">    </span><span class="mf">10056.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"high"</span><span class="p">:</span><span class="w">   </span><span class="mf">10065.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vol"</span><span class="p">:</span><span class="w">    </span><span class="mf">158331.348600</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">KLine</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='market-symbol-kline-period-2'><code>market.$symbol$.kline.$period$</code></h3><h3 id='usage'>usage</h3>
+<table><thead>
+<tr>
+<th>key</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>req</td>
+<td>market.$symbol.kline.$period</td>
+</tr>
+<tr>
+<td>id</td>
+<td>クライアントによって生成されたID</td>
+</tr>
+<tr>
+<td>from</td>
+<td>任意, 範囲: [t1..t5]</td>
+</tr>
+<tr>
+<td>to</td>
+<td>任意, 範囲: [t2..t5]</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+from, toは任意入力です、組み合わせは下記に参照してください
+</aside>
+
+<ul>
+<li>from: t1, to: t5, return [t1, t5].</li>
+<li>from: t5, to: t1, which t5 &gt; t1, return [].</li>
+<li>from: t5, return [t5].</li>
+<li>from: t3, return [t3, t5].</li>
+<li>to: t5, return [t1, t5].</li>
+<li>from: t which t3 &lt; t &lt;t4, return [t4, t5].</li>
+<li>to: t which t3 &lt; t &lt;t4, return [t1, t3].</li>
+<li>from: t1 and to: t2, should satisfy 1325347200 &lt; t1 &lt; t2 &lt; 2524579200.</li>
+</ul>
+<h2 id='a5a13a822b'>マーケットデプスを購読する</h2>
+<blockquote>
+<p>コマンド送信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.depth.step0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>購読結果レスポンス</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.depth.step0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474081631</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>データ受信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.depth.step0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474082831</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">[</span><span class="mf">9999.3900</span><span class="p">,</span><span class="mf">0.0098</span><span class="p">],</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="p">[</span><span class="err">price</span><span class="p">,</span><span class="w"> </span><span class="err">amount</span><span class="p">]</span><span class="w">
+      </span><span class="p">[</span><span class="mf">9992.5947</span><span class="p">,</span><span class="mf">0.0560</span><span class="p">],</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">[</span><span class="mf">10010.9800</span><span class="p">,</span><span class="mf">0.0099</span><span class="p">],</span><span class="w">
+      </span><span class="p">[</span><span class="mf">10011.3900</span><span class="p">,</span><span class="mf">2.0000</span><span class="p">]</span><span class="w">
+      </span><span class="err">//more</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='market-symbol-depth-type'><code>market.$symbol$.depth.$type$</code></h3><h3 id='usage-2'>usage</h3>
+<table><thead>
+<tr>
+<th>key</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>req</td>
+<td>market.$symbol.depth.$period</td>
+</tr>
+<tr>
+<td>id</td>
+<td>クライアントによって生成されたID</td>
+</tr>
+</tbody></table>
+<h3 id='479fa2ecd4'>変数の説明</h3>
+<table><thead>
+<tr>
+<th>key</th>
+<th>necessary</th>
+<th>type</th>
+<th>description</th>
+<th>value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>Pairs</td>
+<td>ethbtc, ltcbtc, etcbtc, bccbtc...</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>Market depth</td>
+<td>step0, step1, step2, step3, step4, step5</td>
+</tr>
+</tbody></table>
+<h2 id='65b803d426'>マーケットデプスのリクエスト</h2>
+<blockquote>
+<p>コマンド送信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.depth.step0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>データ受信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.depth.step0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="mf">9999.3900</span><span class="p">,</span><span class="mf">0.0098</span><span class="p">],</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="p">[</span><span class="err">price</span><span class="p">,</span><span class="w"> </span><span class="err">amount</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="mf">9992.5947</span><span class="p">,</span><span class="mf">0.0560</span><span class="p">],</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="mf">10010.9800</span><span class="p">,</span><span class="mf">0.0099</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="mf">10011.3900</span><span class="p">,</span><span class="mf">2.0000</span><span class="p">]</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='market-symbol-depth-type-2'><code>market.$symbol$.depth.$type$</code></h3>
+<table><thead>
+<tr>
+<th>key</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>req</td>
+<td>market.$symbol.depth.$type&quot;</td>
+</tr>
+<tr>
+<td>id</td>
+<td>クライアントによって生成されたID</td>
+</tr>
+</tbody></table>
+<h2 id='ebf005b223'>取引の詳細</h2>
+<blockquote>
+<p>コマンド送信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>購読結果レスポンス</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474081631</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>デーた受信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474082831</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0099</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1533265950234</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">146507451359183894799</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">401.74</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">Trade</span><span class="w"> </span><span class="err">Detail</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='market-symbol-trade-detail'><code>market.$symbol$.trade.detail</code></h3>
+<table><thead>
+<tr>
+<th>key</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>req</td>
+<td>market.$symbol.trade.detail&quot;</td>
+</tr>
+<tr>
+<td>id</td>
+<td>クライアントによって生成されたID</td>
+</tr>
+</tbody></table>
+<h2 id='8ba516f1f6'>取引詳細のリクエスト</h2>
+<blockquote>
+<p>リクエスト送信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id11"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>データ受信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id11"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">        </span><span class="mi">601595424</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w">     </span><span class="mf">10195.64</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w">      </span><span class="mi">1494495766</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w">    </span><span class="mf">0.2943</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tradeId"</span><span class="p">:</span><span class="w">   </span><span class="mi">601595424</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ts"</span><span class="p">:</span><span class="w">        </span><span class="mi">1494495766000</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">        </span><span class="mi">601595423</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w">     </span><span class="mf">10195.64</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w">      </span><span class="mi">1494495711</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w">    </span><span class="mf">0.2430</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tradeId"</span><span class="p">:</span><span class="w">   </span><span class="mi">601595423</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ts"</span><span class="p">:</span><span class="w">        </span><span class="mi">1494495711000</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">Trade</span><span class="w"> </span><span class="err">Detail</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='market-symbol-trade-detail-2'><code>market.$symbol$.trade.detail</code></h3>
+<table><thead>
+<tr>
+<th>key</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>req</td>
+<td>market.$symbol.trade.detail&quot;</td>
+</tr>
+<tr>
+<td>id</td>
+<td>クライアントによって生成されたID</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+最大データ量: 300
+</aside>
+<h2 id='0e9b8c0c7c'>マーケット詳細のリクエスト</h2>
+<blockquote>
+<p>リクエスト送信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id12"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>データ受信</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id12"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">12224.2922</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w">   </span><span class="mf">9790.52</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close"</span><span class="p">:</span><span class="w">  </span><span class="mf">10195.00</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high"</span><span class="p">:</span><span class="w">   </span><span class="mf">10300.00</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ts"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494496390000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494496390</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w">  </span><span class="mi">15195</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low"</span><span class="p">:</span><span class="w">    </span><span class="mf">9657.00</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vol"</span><span class="p">:</span><span class="w">    </span><span class="mf">121906001.754751</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='market-symbol-detail'><code>market.$symbol$.detail</code></h3>
+<table><thead>
+<tr>
+<th>key</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>req</td>
+<td>market.$symbol.detail&quot;</td>
+</tr>
+<tr>
+<td>id</td>
+<td>クライアントによって生成されたID</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+最近のマーケット詳細情報を返します
+</aside>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
