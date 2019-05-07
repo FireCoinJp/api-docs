@@ -1,22 +1,38 @@
-# Errors
+# エラーコード
 
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+## マーケット関連API
+
+| エラーコード |  説明 |
+|-----|-----|
+| bad-request | リクエストエラー |
+| invalid-parameter | パラメーターエラー |
+| invalid-command | 命令エラー|
+
+<aside class="success">
+code の具体的な詳細については `err-msg`にて対応しているもの参照ください.
 </aside>
 
-The Kittn API uses the following error codes:
+## 取引関連API
 
-
-Error Code | Meaning
----------- | -------
-400 | Bad Request -- Your request is invalid.
-401 | Unauthorized -- Your API key is wrong.
-403 | Forbidden -- The kitten requested is hidden for administrators only.
-404 | Not Found -- The specified kitten could not be found.
-405 | Method Not Allowed -- You tried to access a kitten with an invalid method.
-406 | Not Acceptable -- You requested a format that isn't json.
-410 | Gone -- The kitten requested has been removed from our servers.
-418 | I'm a teapot.
-429 | Too Many Requests -- You're requesting too many kittens! Slow down!
-500 | Internal Server Error -- We had a problem with our server. Try again later.
-503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
+| エラーコード  |  説明 |
+|-----|-----|
+| base-symbol-error |  トレードペアが存在していない |
+| base-currency-error |  銘柄が存在していない |
+| base-date-error | 日時フォマットのエラー |
+| account-transfer-balance-insufficient-error | 残高不足により凍結できません |
+| bad-argument | パラメーターの期限切れ |
+| api-signature-not-valid | API署名エラー |
+| gateway-internal-error | システムビジー，少し時間をあけて再度お試しください|
+| security-require-assets-password|資金パスワードの入力が必要|
+| audit-failed | 注文失敗|
+| ad-ethereum-address | 有効なETHのアドレスを入力してください|
+| order-accountbalance-error | アカウント残高不足|
+| order-limitorder-price-error |指値の注文価格が制限を超えている |
+| order-limitorder-amount-error |指値の注文量が制限を超えている |
+| order-orderprice-precision-error |注文価格が制限精度を超えている |
+| order-orderamount-precision-error |注文量が制限精度を超えている|
+| order-marketorder-amount-error |注文量が制限を超えている|
+| order-queryorder-invalid |この注文を見つけることができない |
+| order-orderstate-error |注文ステータスエラー|
+| order-datelimit-error |照会時間制限を超えた|
+| order-update-error |注文の更新失敗|
