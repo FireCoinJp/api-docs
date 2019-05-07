@@ -346,13 +346,7 @@
             <a href="#websocket" class="toc-h1 toc-link" data-title="Websocket共通">Websocket共通</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#web-ssl" class="toc-h2 toc-link" data-title="Webソケットの接続 (SSL)">Webソケットの接続 (SSL)</a>
-                  </li>
-                  <li>
-                    <a href="#d4d63da93d" class="toc-h2 toc-link" data-title="データ">データ</a>
-                  </li>
-                  <li>
-                    <a href="#4c3a8f8278" class="toc-h2 toc-link" data-title="ライブラリー">ライブラリー</a>
+                    <a href="#web" class="toc-h2 toc-link" data-title="Webソケットの接続">Webソケットの接続</a>
                   </li>
                   <li>
                     <a href="#topic" class="toc-h2 toc-link" data-title="Topic">Topic</a>
@@ -378,7 +372,7 @@
                     <a href="#d286268be5" class="toc-h2 toc-link" data-title="ローソク足 データ">ローソク足 データ</a>
                   </li>
                   <li>
-                    <a href="#kline" class="toc-h2 toc-link" data-title="KLineデータ">KLineデータ</a>
+                    <a href="#kline-chat" class="toc-h2 toc-link" data-title="KLine Chatデータ">KLine Chatデータ</a>
                   </li>
                   <li>
                     <a href="#a5a13a822b" class="toc-h2 toc-link" data-title="マーケットデプスを購読する">マーケットデプスを購読する</a>
@@ -2954,16 +2948,17 @@ code の具体的な詳細については `err-msg`にて対応しているも�
 <td>注文の更新失敗</td>
 </tr>
 </tbody></table>
-<h1 id='websocket'>Websocket共通</h1><h2 id='web-ssl'>Webソケットの接続 (SSL)</h2>
-<blockquote>
-<p>wss://api-cloud.huobi.co.jp/ws</p>
-</blockquote>
-<h2 id='d4d63da93d'>データ</h2>
-<p>すべての戻りデータは解凍する必要があります。</p>
+<h1 id='websocket'>Websocket共通</h1><h2 id='web'>Webソケットの接続</h2>
+<p>URL : <code>wss://api-cloud.huobi.co.jp/ws</code></p>
 
-<p>リンク: <a href="https://github.com/nodeca/pako">pako</a></p>
-<h2 id='4c3a8f8278'>ライブラリー</h2>
-<p>リンク: <a href="https://github.com/websockets/ws">ws</a> by Node.js</p>
+<aside class="info">
+全てのレスポンスデータは解凍する必要があります。解凍ロジックは下記のライブラリーに参考してください。
+</aside>
+
+<ul>
+<li><a href="https://github.com/nodeca/pako">圧縮ライブラリー</a> by Node.js</li>
+<li><a href="https://github.com/websockets/ws">websocketライブラリー</a> by Node.js</li>
+</ul>
 <h2 id='topic'>Topic</h2>
 <p>リクエストや購読には、<code>topic</code>を使います。主なトピックは下記の通りです。</p>
 
@@ -3040,7 +3035,7 @@ code の具体的な詳細については `err-msg`にて対応しているも�
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <aside class="sucess">
-リクエストは上述のトピックのように使えます。
+上記のトピックはRequestから呼び出すこともできます。
 </aside>
 
 <blockquote>
@@ -3277,7 +3272,7 @@ code の具体的な詳細については `err-msg`にて対応しているも�
 <td>1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year</td>
 </tr>
 </tbody></table>
-<h2 id='kline'>KLineデータ</h2>
+<h2 id='kline-chat'>KLine Chatデータ</h2>
 <blockquote>
 <p>コマンド送信</p>
 </blockquote>
