@@ -11,5 +11,7 @@ case $1 in
     build)
         ./deploy.sh
         ;;
+    localBuild)
+        ./deploy.sh -v --source-only
 esac
 

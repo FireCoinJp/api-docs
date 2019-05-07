@@ -1,19 +1,15 @@
 # Websocket共通
 
-## Webソケットの接続 (SSL)
+## Webソケットの接続
 
-> wss://api-cloud.huobi.co.jp/ws
+URL : `wss://api-cloud.huobi.co.jp/ws`
 
+<aside class="info">
+全てのレスポンスデータは解凍する必要があります。解凍ロジックは下記のライブラリーに参考してください。
+</aside>
 
-## データ
-
-すべての戻りデータは解凍する必要があります。
-
-リンク: [pako](https://github.com/nodeca/pako)
-
-## ライブラリー
-
-リンク: [ws](https://github.com/websockets/ws) by Node.js
+* [圧縮ライブラリー](https://github.com/nodeca/pako) by Node.js
+* [websocketライブラリー](https://github.com/websockets/ws) by Node.js
 
 ## Topic
 
@@ -74,7 +70,7 @@
 ```
 
 <aside class="sucess">
-リクエストは上述のトピックのように使えます。
+上記のトピックはRequestから呼び出すこともできます。
 </aside>
 
 > 正しいリクエスト
@@ -330,10 +326,7 @@
 | symbol | true  | string | Pairs | ethbtc, ltcbtc...|
 | period | true | string | KLine period | 1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year |
 
-## KLineデータ 
-
-
-
+## KLine Chatデータ 
 
 > コマンド送信
 

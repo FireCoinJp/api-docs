@@ -74,6 +74,9 @@ vagrant up
 # build & commit
 ./server.sh build
 
+# build only
+./server.sh localBuild 
+open build/index.html
 ```
 
 You can now see the docs at http://localhost:4567. Whoa! That was fast!
