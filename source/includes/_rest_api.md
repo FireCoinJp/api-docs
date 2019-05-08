@@ -213,7 +213,7 @@ Parameter | Required | Description
 
 ```shell
 curl -X GET \
-     "https://api-cloud.huobi.co.jp//v1/common/currencys"
+     "https://api-cloud.huobi.co.jp/v1/common/currencys"
 ```
 
 > 上記のコマンドは、次のような構造のJSONを返します。
@@ -258,7 +258,7 @@ Parameter | Required | Description
 
 ```shell
 curl -X GET \
-      "https://api-cloud.huobi.co.jp//v1/common/timestamp"
+      "https://api-cloud.huobi.co.jp/v1/common/timestamp"
 ```
 
 > 上記のコマンドは、次のような構造のJSONを返します。
