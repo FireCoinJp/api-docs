@@ -13,5 +13,12 @@ case $1 in
         ;;
     localBuild)
         ./deploy.sh -v --source-only
+        ;;
+    deploy)
+        ./deploy.sh -v --source-only
+        aws --profile=compliance-s3 s3 sync build s3://local-jp-api-docs --exclude=.git
+
+        ;;
+
 esac
 

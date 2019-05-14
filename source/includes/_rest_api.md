@@ -934,11 +934,11 @@ curl -X POST \
 Parameter | Required | Description
 --------- | ------- | -----------
 | account-id | true  | アカウント ID，accountsを使用して獲得する方法。仮想通貨ペアのトレードを使用‘spot’アカウントのaccountid 
-| amount     | true  | 指値の表示注文数量，成り行きで買う時は幾らで買うかを表示，成り行きで売る時に何枚売るかを表示 
-| price      | false | 注文価格，成り行き注文はこのパラメーターを通さない  
-| source     | false | 注文のソース    
+| amount     | true  | 取引数量 
+| price      | false | 指値の注文価格
+| source     | false | 注文のソース, default: api
 | symbol     | true  | 取引通貨ペア 
-| type       | true  | 注文タイプ <br> buy-market：成り行き買い <br> sell-market：成り行き売り<br>buy-limit：指値買い<br>sell-limit：指値売り<br>buy-ioc：IOC買い注文<br>sell-ioc：IOC売り注文<br>buy-limit-maker<br>sell-limit-maker
+| type       | true  | 注文タイプ<br> buy-market：成行買い <br> sell-market：成行売り<br>buy-limit：指値買い<br>sell-limit：指値売り<br>buy-ioc：IOC買い注文<br>sell-ioc：IOC売り注文<br>buy-limit-maker<br>sell-limit-maker
 
 
 <aside class="success">
