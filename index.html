@@ -1612,17 +1612,17 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 <tr>
 <td>amount</td>
 <td>true</td>
-<td>注文数量</td>
+<td>取引数量</td>
 </tr>
 <tr>
 <td>price</td>
 <td>false</td>
-<td>注文価格，成り行き注文はこのパラメーターを通さない</td>
+<td>指値の注文価格</td>
 </tr>
 <tr>
 <td>source</td>
 <td>false</td>
-<td>注文のソース</td>
+<td>注文のソース, default: api</td>
 </tr>
 <tr>
 <td>symbol</td>
@@ -1632,7 +1632,7 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 <tr>
 <td>type</td>
 <td>true</td>
-<td>注文タイプ <br> buy-market：成り行き買い <br> sell-market：成り行き売り<br>buy-limit：指値買い<br>sell-limit：指値売り<br>buy-ioc：IOC買い注文<br>sell-ioc：IOC売り注文<br>buy-limit-maker<br>sell-limit-maker</td>
+<td>注文タイプ<br> buy-market：成行買い <br> sell-market：成行売り<br>buy-limit：指値買い<br>sell-limit：指値売り<br>buy-ioc：IOC買い注文<br>sell-ioc：IOC売り注文<br>buy-limit-maker<br>sell-limit-maker</td>
 </tr>
 </tbody></table>
 
