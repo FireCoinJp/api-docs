@@ -1,33 +1,33 @@
 # Websocket共通
 
-## Webソケットの接続
+## 概要
 
-URL : `wss://api-cloud.huobi.co.jp/ws`
+WebSocket規格とはTCPに基づいた新しいコンピューターネットワーク用の通信規格である。1つのtcpコネクションでのクライアントとサーバ間の双方向通信を実装しています。サーバ側からクライアントにデータをプッシュ配信できるため、頻繁な認証等のオーバーヘッドを削減できる。主なメリットが2つ挙げられます。
 
-<aside class="info">
-全てのレスポンスデータは解凍する必要があります。解凍ロジックは下記のライブラリーに参考してください。
-</aside>
++ 2者間のヘッダデータサイズが約2Byteと非常に小さくなります。
 
-* [圧縮ライブラリー](https://github.com/nodeca/pako) by Node.js
-* [websocketライブラリー](https://github.com/websockets/ws) by Node.js
++ サーバ側はクライアント側からの送信要求を受けてからデータを送信するのではなく、クライアントに新しいデータをプッシュ配信できます。
 
-## Topic
+以上のことからWebSocketプロトコルは、仮想通貨相場やその取引のようなリアルタイム性が求められる通信の要件を満たすには最適なインターフェースです。
 
-リクエストや購読には、`topic`を使います。主なトピックは下記の通りです。
+# リクエストとサブスクリプションについて
 
-| type      | topic                     | description                                       |
-| ------------- | ---------------------------- | ---------------------------------------- |
-| KLine         | market.$symbol.kline.$period | $period ：{ 1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year } |
-| Market Depth  | market.$symbol.depth.$type   | $type ：{ step0, step1, step2, step3, step4, step5 } （depths 0-5）|
-| Trade Detail  | market.$symbol.trade.detail  |                                          |
-| Market Detail | market.$symbol.detail        |                                          |
-| Market Tickers | market.tickers        |
-`$symbol` ： { ethbtc, ltcbtc, etcbtc, bccbtc ... }
+## 1. アドレス
 
-## ハートビート
++ URL : `wss://api-cloud.huobi.co.jp/ws`
+
+## 2. データ圧縮
+
++ WebSocket API 経由で返されるデータはすべてGZIP圧縮されており、データ受信者側のクライアントにて解凍する必要があります。Pakoを使用することをお勧めします。（[pako](https://github.com/nodeca/pako)  とは圧縮・解凍できるGZIPのリポジトリである）
+
+## 3. WebSocketライブラリ
+
++ [ws](https://github.com/websockets/ws) のWebSocketライブラリになります。
+
+## 4. ハートビート
 
 
-> WebSocket Client Request
+> WebSocket Server がpingを送信する
 
 ```json
 {
@@ -35,7 +35,7 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
-> WebSocket Server response
+> WebSocket Client がpongを返信する
 
 ```json
 {
@@ -43,7 +43,16 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
-> 要求メッセージの種類が`LONG`でない場合、websocketサーバーは次のように応答します。
+
+> 注："pong"の応答値は"ping" の受信時の値と同一の値となります。
+
+>  WebSocket Client がpingを送信する
+
+```json
+{"ping": 18212553000}
+```
+
+> 注：必ずLong型の"ping"を送信しなければなりません。そうしなければ、誤ったデータが返信されます
 
 ```json
 {
@@ -54,13 +63,65 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
+> WebSocket Server がpongを返信する
+
+```json
+{"pong": 18212553000}
+```
+
+> 注：返信される"pong" の応答値は受信した"ping"` の値と同一の値となります。
+  
+>  エラー時の返信フォーマット
+
+```json
+{
+  "id": "id generate by client",
+  "status": "error",
+  "err-code": "err-code",
+  "err-msg": "err-message",
+  "ts": 1487152091345
+}
+```
+> 注：tsは誤ったデータより生成されたタイムスタンプになります。単位：ミリ秒
+
+
 <aside class="success">
-接続状態を維持するために、クライアントおよびサーバーは定期的にハートビートを送り合います。
+WebSocket API は双方向のハートビートが可能です。 Server または Client のどちらかがping messageを送信することが可能であり、相手よりpong messageが返信されます。
 </aside>
 
-## リクエスト
 
-> リクエストを送信する
+WebSocket Client と WebSocket Server との間でコネクション確立後、WebSocket Server は 5s（変更の可能性がある）ごとに WebSocket Client にpingを送信し、WebSocket Client より2回連続Pingへの応答がなければ、WebSocket Server はコネクションを切断します。WebSocket Clientが直近2回のPingのうちの1つのpingに応答すれば、WebSocket Serverはコネクションを維持します。
+
+
+<img src="/images/pong.png" style="margin:auto; width: 100%">
+
+
+`注：WebSocket Clientが直近2回のmessageのうちの1つのpingを送信すれば、WebSocket Serverはコネクションを維持します。`
+
+<img src="/images/ping.png" style="margin:auto; width: 100%">
+
+
+`注：2回連続WebSocket Client からの応答がなければ、WebSocket Server はコネクションを切断します。`
+  
+
+## 5. Topicのフォーマット
+
++ データのサブスクリプションとリクエストともにtopicを使います。topic の構文は以下になります。
+
+| topic タイプ | topic 文法 | sub/req | 説明 |
+|----------------|------------------------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| KLine | market.$symbol.kline.$period | sub/req | チャート データ　单位時間内の始値、終値、最高値、最安値、取引量、取引高、約定回数等のデータを含む $period 選択可能な値：{ 1min, 5min, 15min, 30min, 60min, 4hour,1day, 1mon, 1week, 1year } |
+| Market Depth | market.$symbol.depth.$type | sub/req | 板の精度、異なる stepで買いⅠ、買いⅡ、買いⅢ等及び売りⅠ、売りⅡ、売りⅢ等の価格を纏める$type 選択できるstep：{ step0, step1, step2, step3, step4, step5, percent10 } （精度0-5）；step0の場合，異なる価格の注文を纏めない |
+| Trade Detail | market.$symbol.trade.detail | sub/req | 取引履歴、約定価格、取引量、買/売等の情報を含む |
+| Market Detail | market.$symbol.detail | sub/req | 直近24時間の取引量、取引高、始値、終値、最高値、最安値、約定回数等 |
+| Market Tickers | market.tickers | sub | 公開したすべての通貨ペアの1日のチャート、直近24時間の取引量等の情報 |
+
++ `$symbol` とは通貨ペアのことである。選択可能な值： { ethbtc, ltcbtc, etcbtc, bchbtc...... }
++ ユーザーが「精度」を選ぶと、同じ精度範囲内の注文は纏まって表示される。ただし、表示の仕方に影響が出るのみであり、実際の約定価格に影響しない。
+
+## 6. データリクエスト(req)
+
+> データリクエストのフォーマット
 
 ```json
 {
@@ -69,11 +130,9 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
-<aside class="sucess">
-上記のトピックはRequestから呼び出すこともできます。
-</aside>
 
-> 正しいリクエスト
+
+> データリクエストの正しい例
 
 ```json
 {
@@ -82,12 +141,12 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
-> Response
+> 返信データ例
 
 ```json
 {
   "status": "ok",
-  "rep": "market.btccny.kline.1min",
+  "rep": "market.btcusdt.kline.1min",
   "tick": [
     {
       "amount": 1.6206,
@@ -113,7 +172,7 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
-> 間違ったリクエスト
+>  データリクエストのエラー例
 
 ```json
 {
@@ -122,7 +181,7 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
-> 上記のコマンドは、次のような構造のJSONを返します。
+> エラーメッセージ応答例
 
 ```json
 {
@@ -134,40 +193,54 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
+<aside class="success">
+"req" の値はtopic である。「5. Topicのフォーマット」のtopicフォーマットに参照してください。
+</aside>
 
-## トピックの購読
+## 7.データのサブスクリプション(sub)
 
-> 購読メッセージ
+
+> + データのサブスクリプションのフォーマット
+
+> WebSocket API とのコネクションを行った後、 Serverに以下のフォーマットのデータを送信することにより、データを購読する
 
 ```json
 {
-   "sub": "market.btccny.kline.1min",
-   "id": "id1"
+  "id": "id generate by client",
+  "sub": "topic to sub",
+  "freq-ms": 1000
 }
 ```
 
-> 上記のコマンドは、次のような構造のJSONを返します。
+> 注：idのパラメータは選択可能です
+> 注：freq-msのパラメータは選択可能であり、選択値は{ 1000, 2000, 3000, 4000, 5000 }になります。freq-ms をアップロードしない限り、デフォルト値を0はとなり、データが更新された際、直ちにClientにプッシュ配信されることになります。 Server のプッシュ配信の頻度はfreq-msにて調整できます。
+
+> サブスクリプションの正しい例
+
+```json
+{
+  "sub": "market.btcusdt.kline.1min",
+  "id": "id1"
+}
+```
+
+> "sub"の値はtopicであり、「5. Topicのフォーマット」の**topic のフォーマット**参照
+
+> + サブスクリプション完了後、データを返信された例
 
 ```json
 {
   "id": "id1",
   "status": "ok",
-  "subbed": "market.btccny.kline.1min",
+  "subbed": "market.btcusdt.kline.1min",
   "ts": 1489474081631
 }
 ```
-
-<aside class="success">
-データを受信するには、まず「sub」メッセージを送信する必要があります。
-購読した後、サーバー側で変更や更新があった場合、そのデータを自動的に受信できます。
-</aside>
-
-
-> 受信するメッセージは次のようなJSONが返されます。
+> その後、 KLineが更新されるごとに、clientはデータを受信する
 
 ```json
 {
-  "ch": "market.btccny.kline.1min",
+  "ch": "market.btcusdt.kline.1min",
   "ts": 1489474082831,
   "tick": {
     "id": 1489464480,
@@ -182,8 +255,46 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
-> シンボルが間違った場合は、下記のようなエラーメッセージが返ってきます。
 
+
++ データのサブスクリプション(sub)及びサブスクリプションデータ受信の流れ
+ 
+
+<img src="/images/sub.png" style="margin:auto; width: 100%">
+
+`注： topic のサブスクリプション完了後、 topicのデータが更新された際、 Server は一定の頻度でtopicの更新データを Clientにプッシュ配信する`
+
+
+
+> + tick の説明
+
+```json
+
+{
+  "tick": {
+    "id": "チャートid",
+    "amount": "取引量",
+    "count": "約定回数",
+    "open": "始値",
+    "close": "終値 最後の一本のKラインは最新の約定価格である",
+    "low": "最安値",
+    "high": "最高値",
+    "vol": "取引高, 取引価格*約定の量＝取引量合計"
+  }
+}
+```
+
+> + 誤ったサブスクリプション（誤った symbol）
+
+```json
+{
+  "sub": "market.invalidsymbol.kline.1min",
+  "id": "id2"
+}
+```
+
+> サブスクリプションが失敗した場合、データが返送された例：
+  
 ```json
 {
   "id": "id2",
@@ -194,22 +305,32 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
-> Topicが間違った場合は、下記のようなエラーメッセージになります。
+> + 誤ったサブスクリプション（間違った topic）：
+
+```json
+{
+  "sub": "market.btcusdt.kline.3min",
+  "id": "id3"
+}
+```
+
+> サブスクリプションが失敗した場合、データが返信された例：
 
 ```json
 {
   "id": "id3",
   "status": "error",
   "err-code": "bad-request",
-  "err-msg": "invalid topic market.btccny.kline.3min",
+  "err-msg": "invalid topic market.btcusdt.kline.3min",
   "ts": 1494310283622
 }
 ```
 
-## 購読の解除
+## 8.サブスクライブの停止(unsub)
 
+> + サブスクライブの停止フォーマット
 
-> 解除コマンドは下記のようなメッセージです。
+> サブスクライブ停止のフォーマットについては以下のとおりとなります。
 
 ```json
 {
@@ -218,39 +339,57 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
 }
 ```
 
-> 成功したリクエスト
+> サブスクライブ停止の正しい例。
 
 ```json
 {
-  "unsub": "market.btcjpy.trade.detail",
+  "unsub": "market.btcusdt.trade.detail",
   "id": "id4"
 }
 ```
 
-> 上記のコマンドは、次のような構造のJSONを返します。
+> サブスクライブ停止完了後、データが返信された例。
 
 ```json
 {
   "id": "id4",
   "status": "ok",
-  "unsubbed": "market.btccny.trade.detail",
+  "unsubbed": "market.btcusdt.trade.detail",
   "ts": 1494326028889
 }
 ```
 
-> すでに解除済みの場合は、下記のようなエラーメッセージを返します。
+> サブスクライブ停止の誤った例（未購読のtopicを中止する）
 
+```json
+{
+  "unsub": "market.btcusdt.trade.detail",
+  "id": "id5"
+}
+```
+
+> 誤ったデータが返信された例
+  
 ```json
 {
   "id": "id5",
   "status": "error",
   "err-code": "bad-request",
-  "err-msg": "unsub with not subbed topic market.btccny.trade.detail",
+  "err-msg": "unsub with not subbed topic market.btcusdt.trade.detail",
   "ts": 1494326217428
 }
 ```
 
-> 存在しないトピックを解除する場合は、下記のようなエラーメッセージを返します。
+> + サブスクライブ停止の誤った例（存在しないtopicを中止する）
+
+```json
+{
+  "unsub": "not-exists-topic",
+  "id": "id5"
+}
+```
+
+> 誤ったデータが返信された例
 
 ```json
 {
@@ -261,6 +400,9 @@ URL : `wss://api-cloud.huobi.co.jp/ws`
   "ts": 1494326318809
 }
 ```
+  
+
+WebSocket Client はデータのサブスクライブ後、そのデータのサブスクライブの停止が可能です。停止後は、WebSocket Serverは 当該topicのデータをプッシュしなくなります。
 
 チャンネルからのデータ受信を停止するには、「unsub」メッセージを送信する必要があります。
 
