@@ -346,22 +346,36 @@
             <a href="#websocket" class="toc-h1 toc-link" data-title="Websocket共通">Websocket共通</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#web" class="toc-h2 toc-link" data-title="Webソケットの接続">Webソケットの接続</a>
+                    <a href="#7a52d716ff" class="toc-h2 toc-link" data-title="概要">概要</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#84a0971edd" class="toc-h1 toc-link" data-title="リクエストとサブスクリプションについて">リクエストとサブスクリプションについて</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#1" class="toc-h2 toc-link" data-title="1. アドレス">1. アドレス</a>
                   </li>
                   <li>
-                    <a href="#topic" class="toc-h2 toc-link" data-title="Topic">Topic</a>
+                    <a href="#2" class="toc-h2 toc-link" data-title="2. データ圧縮">2. データ圧縮</a>
                   </li>
                   <li>
-                    <a href="#86af4bc374" class="toc-h2 toc-link" data-title="ハートビート">ハートビート</a>
+                    <a href="#3-websocket" class="toc-h2 toc-link" data-title="3. WebSocketライブラリ">3. WebSocketライブラリ</a>
                   </li>
                   <li>
-                    <a href="#90aa7c4e14" class="toc-h2 toc-link" data-title="リクエスト">リクエスト</a>
+                    <a href="#4" class="toc-h2 toc-link" data-title="4. ハートビート">4. ハートビート</a>
                   </li>
                   <li>
-                    <a href="#9a2e6232e2" class="toc-h2 toc-link" data-title="トピックの購読">トピックの購読</a>
+                    <a href="#5-topic" class="toc-h2 toc-link" data-title="5. Topicのフォーマット">5. Topicのフォーマット</a>
                   </li>
                   <li>
-                    <a href="#4f67d6e1d9" class="toc-h2 toc-link" data-title="購読の解除">購読の解除</a>
+                    <a href="#6-req" class="toc-h2 toc-link" data-title="6. データリクエスト(req)">6. データリクエスト(req)</a>
+                  </li>
+                  <li>
+                    <a href="#7-sub" class="toc-h2 toc-link" data-title="7.データのサブスクリプション(sub)">7.データのサブスクリプション(sub)</a>
+                  </li>
+                  <li>
+                    <a href="#8-unsub" class="toc-h2 toc-link" data-title="8.サブスクライブの停止(unsub)">8.サブスクライブの停止(unsub)</a>
                   </li>
               </ul>
           </li>
@@ -2948,72 +2962,51 @@ code の具体的な詳細については `err-msg`にて対応しているも�
 <td>注文の更新失敗</td>
 </tr>
 </tbody></table>
-<h1 id='websocket'>Websocket共通</h1><h2 id='web'>Webソケットの接続</h2>
-<p>URL : <code>wss://api-cloud.huobi.co.jp/ws</code></p>
-
-<aside class="info">
-全てのレスポンスデータは解凍する必要があります。解凍ロジックは下記のライブラリーに参考してください。
-</aside>
+<h1 id='websocket'>Websocket共通</h1><h2 id='7a52d716ff'>概要</h2>
+<p>WebSocket規格とはTCPに基づいた新しいコンピューターネットワーク用の通信規格である。1つのtcpコネクションでのクライアントとサーバ間の双方向通信を実装しています。サーバ側からクライアントにデータをプッシュ配信できるため、頻繁な認証等のオーバーヘッドを削減できる。主なメリットが2つ挙げられます。</p>
 
 <ul>
-<li><a href="https://github.com/nodeca/pako">圧縮ライブラリー</a> by Node.js</li>
-<li><a href="https://github.com/websockets/ws">websocketライブラリー</a> by Node.js</li>
+<li><p>2者間のヘッダデータサイズが約2Byteと非常に小さくなります。</p></li>
+<li><p>サーバ側はクライアント側からの送信要求を受けてからデータを送信するのではなく、クライアントに新しいデータをプッシュ配信できます。</p></li>
 </ul>
-<h2 id='topic'>Topic</h2>
-<p>リクエストや購読には、<code>topic</code>を使います。主なトピックは下記の通りです。</p>
 
-<table><thead>
-<tr>
-<th>type</th>
-<th>topic</th>
-<th>description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>KLine</td>
-<td>market.$symbol.kline.$period</td>
-<td>$period ：{ 1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year }</td>
-</tr>
-<tr>
-<td>Market Depth</td>
-<td>market.$symbol.depth.$type</td>
-<td>$type ：{ step0, step1, step2, step3, step4, step5 } （depths 0-5）</td>
-</tr>
-<tr>
-<td>Trade Detail</td>
-<td>market.$symbol.trade.detail</td>
-<td></td>
-</tr>
-<tr>
-<td>Market Detail</td>
-<td>market.$symbol.detail</td>
-<td></td>
-</tr>
-<tr>
-<td>Market Tickers</td>
-<td>market.tickers</td>
-<td></td>
-</tr>
-</tbody></table>
-
-<p><code>$symbol</code> ： { ethbtc, ltcbtc, etcbtc, bccbtc ... }</p>
-<h2 id='86af4bc374'>ハートビート</h2>
+<p>以上のことからWebSocketプロトコルは、仮想通貨相場やその取引のようなリアルタイム性が求められる通信の要件を満たすには最適なインターフェースです。</p>
+<h1 id='84a0971edd'>リクエストとサブスクリプションについて</h1><h2 id='1'>1. アドレス</h2>
+<ul>
+<li>URL : <code>wss://api-cloud.huobi.co.jp/ws</code></li>
+</ul>
+<h2 id='2'>2. データ圧縮</h2>
+<ul>
+<li>WebSocket API 経由で返されるデータはすべてGZIP圧縮されており、データ受信者側のクライアントにて解凍する必要があります。Pakoを使用することをお勧めします。（<a href="https://github.com/nodeca/pako">pako</a>  とは圧縮・解凍できるGZIPのリポジトリである）</li>
+</ul>
+<h2 id='3-websocket'>3. WebSocketライブラリ</h2>
+<ul>
+<li><a href="https://github.com/websockets/ws">ws</a> のWebSocketライブラリになります。</li>
+</ul>
+<h2 id='4'>4. ハートビート</h2>
 <blockquote>
-<p>WebSocket Client Request</p>
+<p>WebSocket Server がpingを送信する</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"ping"</span><span class="p">:</span><span class="w"> </span><span class="mi">18212558000</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>WebSocket Server response</p>
+<p>WebSocket Client がpongを返信する</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"pong"</span><span class="p">:</span><span class="w"> </span><span class="mi">18212558000</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>要求メッセージの種類が<code>LONG</code>でない場合、websocketサーバーは次のように応答します。</p>
+<p>注：&quot;pong&quot;の応答値は&quot;ping&quot; の受信時の値と同一の値となります。</p>
+
+<p>WebSocket Client がpingを送信する</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"ping"</span><span class="p">:</span><span class="w"> </span><span class="mi">18212553000</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>注：必ずLong型の&quot;ping&quot;を送信しなければなりません。そうしなければ、誤ったデータが返信されます</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1492420473027</span><span class="p">,</span><span class="w">
@@ -3022,24 +3015,101 @@ code の具体的な詳細については `err-msg`にて対応しているも�
   </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid ping"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<aside class="success">
-接続状態を維持するために、クライアントおよびサーバーは定期的にハートビートを送り合います。
-</aside>
-<h2 id='90aa7c4e14'>リクエスト</h2>
 <blockquote>
-<p>リクエストを送信する</p>
+<p>WebSocket Server がpongを返信する</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"pong"</span><span class="p">:</span><span class="w"> </span><span class="mi">18212553000</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>注：返信される&quot;pong&quot; の応答値は受信した&quot;ping&quot;` の値と同一の値となります。</p>
+
+<p>エラー時の返信フォーマット</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generate by client"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"err-code"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"err-message"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1487152091345</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>注：tsは誤ったデータより生成されたタイムスタンプになります。単位：ミリ秒</p>
+</blockquote>
+
+<aside class="success">
+WebSocket API は双方向のハートビートが可能です。 Server または Client のどちらかがping messageを送信することが可能であり、相手よりpong messageが返信されます。
+</aside>
+
+<p>WebSocket Client と WebSocket Server との間でコネクション確立後、WebSocket Server は 5s（変更の可能性がある）ごとに WebSocket Client にpingを送信し、WebSocket Client より2回連続Pingへの応答がなければ、WebSocket Server はコネクションを切断します。WebSocket Clientが直近2回のPingのうちの1つのpingに応答すれば、WebSocket Serverはコネクションを維持します。</p>
+
+<p><img src="images/pong.png" style="margin:auto; width: 100%"></p>
+
+<p><code>注：WebSocket Clientが直近2回のmessageのうちの1つのpingを送信すれば、WebSocket Serverはコネクションを維持します。</code></p>
+
+<p><img src="images/ping.png" style="margin:auto; width: 100%"></p>
+
+<p><code>注：2回連続WebSocket Client からの応答がなければ、WebSocket Server はコネクションを切断します。</code></p>
+<h2 id='5-topic'>5. Topicのフォーマット</h2>
+<ul>
+<li>データのサブスクリプションとリクエストともにtopicを使います。topic の構文は以下になります。</li>
+</ul>
+
+<table><thead>
+<tr>
+<th>topic タイプ</th>
+<th>topic 文法</th>
+<th>sub/req</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>KLine</td>
+<td>market.$symbol.kline.$period</td>
+<td>sub/req</td>
+<td>チャート データ　单位時間内の始値、終値、最高値、最安値、取引量、取引高、約定回数等のデータを含む $period 選択可能な値：{ 1min, 5min, 15min, 30min, 60min, 4hour,1day, 1mon, 1week, 1year }</td>
+</tr>
+<tr>
+<td>Market Depth</td>
+<td>market.$symbol.depth.$type</td>
+<td>sub/req</td>
+<td>板の精度、異なる stepで買いⅠ、買いⅡ、買いⅢ等及び売りⅠ、売りⅡ、売りⅢ等の価格を纏める$type 選択できるstep：{ step0, step1, step2, step3, step4, step5, percent10 } （精度0-5）；step0の場合，異なる価格の注文を纏めない</td>
+</tr>
+<tr>
+<td>Trade Detail</td>
+<td>market.$symbol.trade.detail</td>
+<td>sub/req</td>
+<td>取引履歴、約定価格、取引量、買/売等の情報を含む</td>
+</tr>
+<tr>
+<td>Market Detail</td>
+<td>market.$symbol.detail</td>
+<td>sub/req</td>
+<td>直近24時間の取引量、取引高、始値、終値、最高値、最安値、約定回数等</td>
+</tr>
+<tr>
+<td>Market Tickers</td>
+<td>market.tickers</td>
+<td>sub</td>
+<td>公開したすべての通貨ペアの1日のチャート、直近24時間の取引量等の情報</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li><code>$symbol</code> とは通貨ペアのことである。選択可能な值： { ethbtc, ltcbtc, etcbtc, bchbtc...... }</li>
+<li>ユーザーが「精度」を選ぶと、同じ精度範囲内の注文は纏まって表示される。ただし、表示の仕方に影響が出るのみであり、実際の約定価格に影響しない。</li>
+</ul>
+<h2 id='6-req'>6. データリクエスト(req)</h2>
+<blockquote>
+<p>データリクエストのフォーマット</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topic to req"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generate by client"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<aside class="sucess">
-上記のトピックはRequestから呼び出すこともできます。
-</aside>
-
 <blockquote>
-<p>正しいリクエスト</p>
+<p>データリクエストの正しい例</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.ethbtc.kline.1min"</span><span class="p">,</span><span class="w">
@@ -3047,11 +3117,11 @@ code の具体的な詳細については `err-msg`にて対応しているも�
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>Response</p>
+<p>返信データ例</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btccny.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.6206</span><span class="p">,</span><span class="w">
@@ -3077,7 +3147,7 @@ code の具体的な詳細については `err-msg`にて対応しているも�
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>間違ったリクエスト</p>
+<p>データリクエストのエラー例</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.invalidsymbo.kline.1min"</span><span class="p">,</span><span class="w">
@@ -3085,7 +3155,7 @@ code の具体的な詳細については `err-msg`にて対応しているも�
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+<p>エラーメッセージ応答例</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
@@ -3094,35 +3164,54 @@ code の具体的な詳細については `err-msg`にて対応しているも�
   </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.invalidsymbol.trade.detail"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494483996521</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h2 id='9a2e6232e2'>トピックの購読</h2>
+</span></code></pre>
+<aside class="success">
+"req" の値はtopic である。「5. Topicのフォーマット」のtopicフォーマットに参照してください。
+</aside>
+<h2 id='7-sub'>7.データのサブスクリプション(sub)</h2>
 <blockquote>
-<p>購読メッセージ</p>
+<ul>
+<li>データのサブスクリプションのフォーマット</li>
+</ul>
+
+<p>WebSocket API とのコネクションを行った後、 Serverに以下のフォーマットのデータを送信することにより、データを購読する</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btccny.kline.1min"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generate by client"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topic to sub"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"freq-ms"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+<p>注：idのパラメータは選択可能です
+注：freq-msのパラメータは選択可能であり、選択値は{ 1000, 2000, 3000, 4000, 5000 }になります。freq-ms をアップロードしない限り、デフォルト値を0はとなり、データが更新された際、直ちにClientにプッシュ配信されることになります。 Server のプッシュ配信の頻度はfreq-msにて調整できます。</p>
+
+<p>サブスクリプションの正しい例</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>&quot;sub&quot;の値はtopicであり、「5. Topicのフォーマット」の<strong>topic のフォーマット</strong>参照</p>
+
+<ul>
+<li>サブスクリプション完了後、データを返信された例</li>
+</ul>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"subbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btccny.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474081631</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<aside class="success">
-データを受信するには、まず「sub」メッセージを送信する必要があります。
-購読した後、サーバー側で変更や更新があった場合、そのデータを自動的に受信できます。
-</aside>
-
 <blockquote>
-<p>受信するメッセージは次のようなJSONが返されます。</p>
+<p>その後、 KLineが更新されるごとに、clientはデータを受信する</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btccny.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474082831</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489464480</span><span class="p">,</span><span class="w">
@@ -3136,8 +3225,45 @@ code の具体的な詳細については `err-msg`にて対応しているも�
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<ul>
+<li>データのサブスクリプション(sub)及びサブスクリプションデータ受信の流れ</li>
+</ul>
+
+<p><img src="images/sub.png" style="margin:auto; width: 100%"></p>
+
+<p><code>注： topic のサブスクリプション完了後、 topicのデータが更新された際、 Server は一定の頻度でtopicの更新データを Clientにプッシュ配信する</code></p>
+
 <blockquote>
-<p>シンボルが間違った場合は、下記のようなエラーメッセージが返ってきます。</p>
+<ul>
+<li>tick の説明</li>
+</ul>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"チャートid"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"取引量"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"約定回数"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"始値"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"終値 最後の一本のKラインは最新の約定価格である"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="s2">"最安値"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="s2">"最高値"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"取引高, 取引価格*約定の量＝取引量合計"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<ul>
+<li>誤ったサブスクリプション（誤った symbol）</li>
+</ul>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.invalidsymbol.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id2"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>サブスクリプションが失敗した場合、データが返送された例：</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id2"</span><span class="p">,</span><span class="w">
@@ -3148,18 +3274,32 @@ code の具体的な詳細については `err-msg`にて対応しているも�
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>Topicが間違った場合は、下記のようなエラーメッセージになります。</p>
+<ul>
+<li>誤ったサブスクリプション（間違った topic）：</li>
+</ul>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.3min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id3"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>サブスクリプションが失敗した場合、データが返信された例：</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id3"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.btccny.kline.3min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.btcusdt.kline.3min"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494310283622</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h2 id='4f67d6e1d9'>購読の解除</h2>
+</span></code></pre><h2 id='8-unsub'>8.サブスクライブの停止(unsub)</h2>
 <blockquote>
-<p>解除コマンドは下記のようなメッセージです。</p>
+<ul>
+<li>サブスクライブの停止フォーマット</li>
+</ul>
+
+<p>サブスクライブ停止のフォーマットについては以下のとおりとなります。</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topic to unsub"</span><span class="p">,</span><span class="w">
@@ -3167,36 +3307,54 @@ code の具体的な詳細については `err-msg`にて対応しているも�
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>成功したリクエスト</p>
+<p>サブスクライブ停止の正しい例。</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcjpy.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id4"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+<p>サブスクライブ停止完了後、データが返信された例。</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id4"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"unsubbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btccny.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"unsubbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494326028889</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>すでに解除済みの場合は、下記のようなエラーメッセージを返します。</p>
+<p>サブスクライブ停止の誤った例（未購読のtopicを中止する）</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id5"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>誤ったデータが返信された例</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id5"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unsub with not subbed topic market.btccny.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unsub with not subbed topic market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494326217428</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>存在しないトピックを解除する場合は、下記のようなエラーメッセージを返します。</p>
+<ul>
+<li>サブスクライブ停止の誤った例（存在しないtopicを中止する）</li>
+</ul>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not-exists-topic"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id5"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>誤ったデータが返信された例</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id5"</span><span class="p">,</span><span class="w">
@@ -3206,6 +3364,8 @@ code の具体的な詳細については `err-msg`にて対応しているも�
   </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494326318809</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p>WebSocket Client はデータのサブスクライブ後、そのデータのサブスクライブの停止が可能です。停止後は、WebSocket Serverは 当該topicのデータをプッシュしなくなります。</p>
+
 <p>チャンネルからのデータ受信を停止するには、「unsub」メッセージを送信する必要があります。</p>
 <h1 id='websocket-2'>Websocketリファレンス</h1><h2 id='d286268be5'>ローソク足 データ</h2>
 <blockquote>
