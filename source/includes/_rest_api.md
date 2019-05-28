@@ -238,7 +238,7 @@ curl -X GET \
 
 ### HTTP Request
 
-`GET /market/detail/currencys`
+`GET /v1/common/currencys`
 
 ### Query Parameters
 
@@ -275,7 +275,7 @@ curl -X GET \
 
 ### HTTP Request
 
-`GET /market/detail/timestamp`
+`GET /v1/common/timestamp`
 
 ### Query Parameters
 
@@ -376,9 +376,9 @@ GET /market/history/kline?period=1day&size=200&symbol=not-exist
 
 | Params | Required | Type | Description  |
 | ------------ | ----- | ------ | --- | 
-| symbol | Y | string | 取引ペア - btceth |
-| period | Y | string | チャートタイプ |
-| size | N | int | サイズ - default=150 max=2000 |
+| symbol | true | string | 取引ペア - btceth |
+| period | true | string | チャートタイプ |
+| size | false | int | サイズ - default=150 max=2000 |
 
 ### Response Data
 
@@ -448,7 +448,6 @@ Parameter | Required | Description
 --------- | ------- | -----------
 symbol | true | トレードペア, 例えば btcjpy
 
-
 ### Response Data
 
 | Parameter | Required | Type | Description  
@@ -506,7 +505,6 @@ curl -X GET "https://api-cloud.huobi.co.jp/market/tickers"
 Parameter | Required | Description
 --------- | ------- | -----------
  |  | 
-
 
 ### Response Data
 
@@ -1054,7 +1052,7 @@ curl -X POST \
 
 ### HTTP Request
 
-`GET /v1/order/orders/place`
+`GET /v1/order/orders/{order-id}/submitcancel`
 
 ### Query Parameters
 
@@ -1080,6 +1078,13 @@ status=OK、出金依頼が成功したことを示します。<br>
 curl -X POST \
     -H "Content-Type: application/json" \
     "https://api-cloud.huobi.co.jp/v1/order/orders/batchcancel"
+{
+  "order-ids": [
+    "1",
+    "2",
+    "3"
+  ]
+}
 ```
 
 > 上記のコマンドは、次のような構造のJSONを返します。
@@ -1266,7 +1271,7 @@ Parameter | Required | Description
 
 ```shell
 curl -X GET \
-  "https://api-cloud.huobi.co.jp/v1/order/orders" 
+  "https://api-cloud.huobi.co.jp/v1/order/orders/{order-id}/matchresults" 
 ```
 
 > 上記のコマンドは、次のような構造のJSONを返します。
@@ -1307,20 +1312,13 @@ curl -X GET \
 
 ### HTTP Request
 
-`GET /v1/order/orders`
+`GET /v1/order/orders/{order-id}/matchresults`
 
 ### Query Parameters
 
 Parameter | Required | Description
 --------- | ------- | -----------
-| symbol     | true  | 取引通貨ペア
-| types      | false | オーダーのタイプの組み合わせ照会、複数可、カンマ区切り, Range: {"buy-market" //成り行き買い, "sell-market" //成り行き売り, "buy-limit" //指値買い, "sell-limit" //指値売り, "buy-ioc" //IOC買い注文, "sell-ioc" //IOC売り注文
-| start-date | false | 開始日時照会、 日時フォマットyyyy-mm-dd 
-| end-date   | false | 終了日時照会、 日時フォマットyyyy-mm-dd 
-| states     | true  | オーダー状態、　Range: {"submitted" //提出済み, "partial-filled" //部分約定, "partial-canceled" // 部分約定キャンセル, "filled" // 完全約定, "canceled" //キャンセル済み |
-| from       | false | 開始 ID照会
-| direct     | false | 方向照会, prev 前，next 後ろ
-| size       | false | 大小記録の照会
+| order-id | true  | パスに記載された注文ID
 
 ### Response Data
 
@@ -1346,7 +1344,83 @@ Parameter | Required | Description
 
 ```shell
 curl -X GET \
-  "https://api-cloud.huobi.co.jp/v1/orders/matchresults" 
+  "https://api-cloud.huobi.co.jp/v1/order/orders" 
+```
+
+> 上記のコマンドは、次のような構造のJSONを返します。
+
+```json
+{
+  "status": "ok",
+  "data": [
+    {
+      "id": 59378,
+      "symbol": "ethusdt",
+      "account-id": 100009,
+      "amount": "10.1000000000",
+      "price": "100.1000000000",
+      "created-at": 1494901162595,
+      "type": "buy-limit",
+      "field-amount": "10.1000000000",
+      "field-cash-amount": "1011.0100000000",
+      "field-fees": "0.0202000000",
+      "finished-at": 1494901400468,
+      "user-id": 1000,
+      "source": "api",
+      "state": "filled",
+      "canceled-at": 0,
+      "exchange": "xxx",
+      "batch": ""
+    }
+  ]
+}
+```
+
+
+このエンドポイントは約定履歴を返します。
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+
+### HTTP Request
+
+`GET /v1/order/orders`
+
+### Query Parameters
+
+Parameter | Required | Description
+--------- | ------- | -----------
+| symbol     | true  | 取引ペア, [btcjpy, bchbtc,...]
+| types      | false | オーダータイプの組み合わせ照会，使用','分割, [buy-market：成り行き買い, sell-market：成り行き売り, buy-limit：指値買い, sell-limit：指値売り, buy-ioc：IOC買い注文, sell-ioc：IOC売り注文]
+| start-date | false | 開始日の照会, 日時フォマットyyyy-mm-dd, default:-61 days, range:[-61day, now]
+| end-date   | false | 終了日の照会, 日時フォマットyyyy-mm-dd, default:Now, range:[start-date, now]
+| from       | false | 開始照会ID, 注文約定記録ID（最大值）
+| direct     | false | 照会方向, default:next，約定記録ID大から小へ並ぶ, prev:前に，next:後ろに
+| size       | false | 大小記録の照会, default:100, max: 100
+
+### Response Data
+
+| Parameter     | Required | Type | Description  
+| ------------- | ----- | ------ | ----------------- 
+| created-at    | true | long   | 約定時間 
+| filled-amount | true | string | 約定数量
+| filled-fees   | true | string | 約定手数料
+| id            | true | long   | 約定注文記録ID
+| match-id      | true | long   | マッチングID
+| order-id      | true | long   | 注文 ID
+| price         | true | string | 約定価格
+| source        | true | string | 注文ソース, default: api
+| symbol        | true | string | 取引通貨ペア
+| type          | true | string | 注文タイプ
+
+
+## 現在の約定、約定履歴の照会
+
+
+```shell
+curl -X GET \
+  "https://api-cloud.huobi.co.jp/v1/order/matchresults" 
 ```
 
 > 上記のコマンドは、次のような構造のJSONを返します。
@@ -1380,7 +1454,7 @@ curl -X GET \
 
 ### HTTP Request
 
-`GET /v1/orders/matchresults`
+`GET /v1/order/matchresults`
 
 ### Query Parameters
 
@@ -1390,24 +1464,29 @@ Parameter | Required | Description
 | types      | false | オーダータイプの組み合わせ照会，複数可, カンマ区切り
 | start-date | false | 開始日の照会, 日時フォマットyyyy-mm-dd, Range: [-61日, Now]
 | end-date   | false | 終了日の照会, 日時フォマットyyyy-mm-dd
-| from       | false | 開始日の照会 ID
+| states     | true  | オーダーのタイプの組み合わせ照会，使用','分割。[submitted 提出済み, partial-filled 部分約定, partial-canceled 部分約定キャンセル, filled 完全約定, canceled キャンセル済み] |
+| from       | false | 開始ID
 | direct     | false | 照会方向 default: next, Range: {"prev", "next"}
 | size       | false | 大小記録の照会, Range: [0, 100]
 
 ### Response Data
 
-| Parameter | Required | Type | Description  
-| ------ | ---- | ------ | -------  
-| created-at    | true | long   | 約定時間 
-| filled-amount | true | string | 約定数量
-| filled-fees   | true | string | 約定手数料
-| id            | true | long   | 約定注文記録ID
-| match-id      | true | long   | マッチングID
-| order-id      | true | long   | 注文 ID
-| price         | true | string | 約定価格
-| source        | true | string | 注文ソース, default: api
-| symbol        | true | string | 取引通貨ペア
-| type          | true | string | 注文タイプ
+| Parameter         | Required | Type | Description  
+| ----------------- | ----- | ------ | ----------------- 
+| account-id        | true  | long   | アカウント ID 
+| amount            | true  | string | 注文数量   
+| canceled-at       | false | long   | キャンセル申請を受ける時間 
+| created-at        | true  | long   | 注文作成時間 
+| field-amount      | true  | string | 約定数量  
+| field-cash-amount | true  | string | 約定総金額 
+| field-fees        | true  | string | 約定済み手数料（買いは仮想通貨の為に，売りはお金のために）
+| finished-at       | false | long   | 最終的な約定時間  
+| id                | true  | long   | 注文ID  
+| price             | true  | string | 注文価格 
+| source            | true  | string | 注文ソース,  api
+| state             | true  | string | 注文ステータス, [submitting , submitted 提出済, partial-filled 部分約定, partial-canceled 部分約定キャンセル, filled 完全約定, canceled キャンセル済]
+| symbol            | true  | string | 取引ペア, [btcjpy, bchbtc,...]
+| type              | true  | string | 注文タイプ, [submit-cancel：キャンセル申請済  ,buy-market：成り行き買い, sell-market：成り行き売り, buy-limit：指値買い, sell-limit：指値売り, buy-ioc：IOC買い注文, sell-ioc：IOC売り注文]
 
 # ウォレット関連
 
@@ -1587,15 +1666,15 @@ Parameter | Required | Description
 
 | Parameter | Required | Type | Description  
 | ------ | ---- | ------ | -------  
-|   id  |  true  |  long  |   
-|   type  |  true  |  long  | タイプ 'deposit' 'withdraw'
-|   currency  |  true  |  string  |  銘柄 
+| id  |  true  |  long  |   
+| type  |  true  |  long  | タイプ 'deposit' 'withdraw'
+| currency  |  true  |  string  |  銘柄 
 | tx-hash | true |string | トレードハッシュ
 | amount | true | long | 個数 
 | address | true | string | アドレス 
 | address-tag | true | string | アドレスラベル 
 | fee | true | long | 手数料 
-| state | true | string | ステータス ステータスは下の表を参考に 
+| state | true | string | ステータス, ステータスは下の表を参考に 
 | created-at | true | long | 開始時間
 | updated-at | true | long | 最後に更新した時間
 
