@@ -312,6 +312,9 @@
                   <li>
                     <a href="#e4de6d1a79" class="toc-h2 toc-link" data-title="約定履歴の照会">約定履歴の照会</a>
                   </li>
+                  <li>
+                    <a href="#cee15b95a1" class="toc-h2 toc-link" data-title="現在の約定、約定履歴の照会">現在の約定、約定履歴の照会</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -695,7 +698,7 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 </span></code></pre>
 <p>このエンドポイントは各取引通貨ペアを返します。</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET /market/detail/currencys</code></p>
+<p><code>GET /v1/common/currencys</code></p>
 <h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -745,7 +748,7 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 </span></code></pre>
 <p>このエンドポイントはシステムのタイムスタンプ(ミリ秒)を返します。</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET /market/detail/timestamp</code></p>
+<p><code>GET /v1/common/timestamp</code></p>
 <h3 id='query-parameters-3'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -852,19 +855,19 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 </thead><tbody>
 <tr>
 <td>symbol</td>
-<td>Y</td>
+<td>true</td>
 <td>string</td>
 <td>取引ペア - btceth</td>
 </tr>
 <tr>
 <td>period</td>
-<td>Y</td>
+<td>true</td>
 <td>string</td>
 <td>チャートタイプ</td>
 </tr>
 <tr>
 <td>size</td>
-<td>N</td>
+<td>false</td>
 <td>int</td>
 <td>サイズ - default=150 max=2000</td>
 </tr>
@@ -1831,7 +1834,7 @@ sell-limit-maker<br>
 署名認証が必要です。
 </aside>
 <h3 id='http-request-13'>HTTP Request</h3>
-<p><code>GET /v1/order/orders/place</code></p>
+<p><code>GET /v1/order/orders/{order-id}/submitcancel</code></p>
 <h3 id='query-parameters-13'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -1876,6 +1879,13 @@ status=OK、出金依頼が成功したことを示します。<br>
 <h2 id='7fd8579ed8'>注文の一括キャンセル</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
     <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/orders/batchcancel"</span>
+<span class="o">{</span>
+  <span class="s2">"order-ids"</span>: <span class="o">[</span>
+    <span class="s2">"1"</span>,
+    <span class="s2">"2"</span>,
+    <span class="s2">"3"</span>
+  <span class="o">]</span>
+<span class="o">}</span>
 </code></pre>
 <blockquote>
 <p>上記のコマンドは、次のような構造のJSONを返します。</p>
@@ -2179,7 +2189,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 </tr>
 </tbody></table>
 <h2 id='f686f1643c'>注文の約定詳細の照会</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
-  <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/orders"</span> 
+  <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/orders/{order-id}/matchresults"</span> 
 </code></pre>
 <blockquote>
 <p>上記のコマンドは、次のような構造のJSONを返します。</p>
@@ -2215,7 +2225,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 署名認証が必要です。
 </aside>
 <h3 id='http-request-17'>HTTP Request</h3>
-<p><code>GET /v1/order/orders</code></p>
+<p><code>GET /v1/order/orders/{order-id}/matchresults</code></p>
 <h3 id='query-parameters-17'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -2225,44 +2235,9 @@ status=OK、出金依頼が成功したことを示します。<br>
 </tr>
 </thead><tbody>
 <tr>
-<td>symbol</td>
+<td>order-id</td>
 <td>true</td>
-<td>取引通貨ペア</td>
-</tr>
-<tr>
-<td>types</td>
-<td>false</td>
-<td>オーダーのタイプの組み合わせ照会、複数可、カンマ区切り, Range: {&quot;buy-market&quot; //成り行き買い, &quot;sell-market&quot; //成り行き売り, &quot;buy-limit&quot; //指値買い, &quot;sell-limit&quot; //指値売り, &quot;buy-ioc&quot; //IOC買い注文, &quot;sell-ioc&quot; //IOC売り注文</td>
-</tr>
-<tr>
-<td>start-date</td>
-<td>false</td>
-<td>開始日時照会、 日時フォマットyyyy-mm-dd</td>
-</tr>
-<tr>
-<td>end-date</td>
-<td>false</td>
-<td>終了日時照会、 日時フォマットyyyy-mm-dd</td>
-</tr>
-<tr>
-<td>states</td>
-<td>true</td>
-<td>オーダー状態、　Range: {&quot;submitted&quot; //提出済み, &quot;partial-filled&quot; //部分約定, &quot;partial-canceled&quot; // 部分約定キャンセル, &quot;filled&quot; // 完全約定, &quot;canceled&quot; //キャンセル済み</td>
-</tr>
-<tr>
-<td>from</td>
-<td>false</td>
-<td>開始 ID照会</td>
-</tr>
-<tr>
-<td>direct</td>
-<td>false</td>
-<td>方向照会, prev 前，next 後ろ</td>
-</tr>
-<tr>
-<td>size</td>
-<td>false</td>
-<td>大小記録の照会</td>
+<td>パスに記載された注文ID</td>
 </tr>
 </tbody></table>
 <h3 id='response-data-18'>Response Data</h3>
@@ -2360,7 +2335,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 </tr>
 </tbody></table>
 <h2 id='e4de6d1a79'>約定履歴の照会</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
-  <span class="s2">"https://api-cloud.huobi.co.jp/v1/orders/matchresults"</span> 
+  <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/orders"</span> 
 </code></pre>
 <blockquote>
 <p>上記のコマンドは、次のような構造のJSONを返します。</p>
@@ -2369,16 +2344,23 @@ status=OK、出金依頼が成功したことを示します。<br>
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">29555</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"order-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">59378</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"match-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">59335</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethjpy"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"api"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">59378</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethusdt"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"account-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">100009</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.1000000000"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.1000000000"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"filled-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.9845000000"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"filled-fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0019690000"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"created-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494901400487</span><span class="w">
+      </span><span class="s2">"created-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494901162595</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"field-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.1000000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"field-cash-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1011.0100000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"field-fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0202000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"finished-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494901400468</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"user-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"api"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"filled"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"canceled-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"batch"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -2389,7 +2371,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 署名認証が必要です。
 </aside>
 <h3 id='http-request-18'>HTTP Request</h3>
-<p><code>GET /v1/orders/matchresults</code></p>
+<p><code>GET /v1/order/orders</code></p>
 <h3 id='query-parameters-18'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -2401,37 +2383,37 @@ status=OK、出金依頼が成功したことを示します。<br>
 <tr>
 <td>symbol</td>
 <td>true</td>
-<td>取引通貨ペア</td>
+<td>取引ペア, [btcjpy, bchbtc,...]</td>
 </tr>
 <tr>
 <td>types</td>
 <td>false</td>
-<td>オーダータイプの組み合わせ照会，複数可, カンマ区切り</td>
+<td>オーダータイプの組み合わせ照会，使用&#39;,&#39;分割, [buy-market：成り行き買い, sell-market：成り行き売り, buy-limit：指値買い, sell-limit：指値売り, buy-ioc：IOC買い注文, sell-ioc：IOC売り注文]</td>
 </tr>
 <tr>
 <td>start-date</td>
 <td>false</td>
-<td>開始日の照会, 日時フォマットyyyy-mm-dd, Range: [-61日, Now]</td>
+<td>開始日の照会, 日時フォマットyyyy-mm-dd, default:-61 days, range:[-61day, now]</td>
 </tr>
 <tr>
 <td>end-date</td>
 <td>false</td>
-<td>終了日の照会, 日時フォマットyyyy-mm-dd</td>
+<td>終了日の照会, 日時フォマットyyyy-mm-dd, default:Now, range:[start-date, now]</td>
 </tr>
 <tr>
 <td>from</td>
 <td>false</td>
-<td>開始日の照会 ID</td>
+<td>開始照会ID, 注文約定記録ID（最大值）</td>
 </tr>
 <tr>
 <td>direct</td>
 <td>false</td>
-<td>照会方向 default: next, Range: {&quot;prev&quot;, &quot;next&quot;}</td>
+<td>照会方向, default:next，約定記録ID大から小へ並ぶ, prev:前に，next:後ろに</td>
 </tr>
 <tr>
 <td>size</td>
 <td>false</td>
-<td>大小記録の照会, Range: [0, 100]</td>
+<td>大小記録の照会, default:100, max: 100</td>
 </tr>
 </tbody></table>
 <h3 id='response-data-19'>Response Data</h3>
@@ -2502,6 +2484,180 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>true</td>
 <td>string</td>
 <td>注文タイプ</td>
+</tr>
+</tbody></table>
+<h2 id='cee15b95a1'>現在の約定、約定履歴の照会</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
+  <span class="s2">"https://api-cloud.huobi.co.jp/v1/order/matchresults"</span> 
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">29555</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"order-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">59378</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"match-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">59335</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethjpy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"api"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.1000000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"filled-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.9845000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"filled-fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0019690000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494901400487</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このエンドポイントは約定履歴を返します。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-19'>HTTP Request</h3>
+<p><code>GET /v1/order/matchresults</code></p>
+<h3 id='query-parameters-19'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>取引通貨ペア</td>
+</tr>
+<tr>
+<td>types</td>
+<td>false</td>
+<td>オーダータイプの組み合わせ照会，複数可, カンマ区切り</td>
+</tr>
+<tr>
+<td>start-date</td>
+<td>false</td>
+<td>開始日の照会, 日時フォマットyyyy-mm-dd, Range: [-61日, Now]</td>
+</tr>
+<tr>
+<td>end-date</td>
+<td>false</td>
+<td>終了日の照会, 日時フォマットyyyy-mm-dd</td>
+</tr>
+<tr>
+<td>states</td>
+<td>true</td>
+<td>オーダーのタイプの組み合わせ照会，使用&#39;,&#39;分割。[submitted 提出済み, partial-filled 部分約定, partial-canceled 部分約定キャンセル, filled 完全約定, canceled キャンセル済み]</td>
+</tr>
+<tr>
+<td>from</td>
+<td>false</td>
+<td>開始ID</td>
+</tr>
+<tr>
+<td>direct</td>
+<td>false</td>
+<td>照会方向 default: next, Range: {&quot;prev&quot;, &quot;next&quot;}</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>大小記録の照会, Range: [0, 100]</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-20'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>long</td>
+<td>アカウント ID</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>string</td>
+<td>注文数量</td>
+</tr>
+<tr>
+<td>canceled-at</td>
+<td>false</td>
+<td>long</td>
+<td>キャンセル申請を受ける時間</td>
+</tr>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>long</td>
+<td>注文作成時間</td>
+</tr>
+<tr>
+<td>field-amount</td>
+<td>true</td>
+<td>string</td>
+<td>約定数量</td>
+</tr>
+<tr>
+<td>field-cash-amount</td>
+<td>true</td>
+<td>string</td>
+<td>約定総金額</td>
+</tr>
+<tr>
+<td>field-fees</td>
+<td>true</td>
+<td>string</td>
+<td>約定済み手数料（買いは仮想通貨の為に，売りはお金のために）</td>
+</tr>
+<tr>
+<td>finished-at</td>
+<td>false</td>
+<td>long</td>
+<td>最終的な約定時間</td>
+</tr>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td>注文ID</td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td>注文価格</td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td>注文ソース,  api</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td>注文ステータス, [submitting , submitted 提出済, partial-filled 部分約定, partial-canceled 部分約定キャンセル, filled 完全約定, canceled キャンセル済]</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>取引ペア, [btcjpy, bchbtc,...]</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>注文タイプ, [submit-cancel：キャンセル申請済  ,buy-market：成り行き買い, sell-market：成り行き売り, buy-limit：指値買い, sell-limit：指値売り, buy-ioc：IOC買い注文, sell-ioc：IOC売り注文]</td>
 </tr>
 </tbody></table>
 <h1 id='c0360c450d'>ウォレット関連</h1>
@@ -2612,9 +2768,9 @@ status=OK、出金依頼が成功したことを示します。<br>
 <aside class="success">
 署名認証が必要です。
 </aside>
-<h3 id='http-request-19'>HTTP Request</h3>
+<h3 id='http-request-20'>HTTP Request</h3>
 <p><code>GET /v1/dw/withdraw/api/create</code></p>
-<h3 id='query-parameters-19'>Query Parameters</h3>
+<h3 id='query-parameters-20'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2648,7 +2804,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>string</td>
 </tr>
 </tbody></table>
-<h3 id='response-data-20'>Response Data</h3>
+<h3 id='response-data-21'>Response Data</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2681,9 +2837,9 @@ status=OK、出金依頼が成功したことを示します。<br>
 <aside class="success">
 署名認証が必要です。
 </aside>
-<h3 id='http-request-20'>HTTP Request</h3>
+<h3 id='http-request-21'>HTTP Request</h3>
 <p><code>GET /v1/dw/withdraw-virtual/{withdraw-id}/cancel</code></p>
-<h3 id='query-parameters-20'>Query Parameters</h3>
+<h3 id='query-parameters-21'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2697,7 +2853,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>出金ID，pathの中に記入</td>
 </tr>
 </tbody></table>
-<h3 id='response-data-21'>Response Data</h3>
+<h3 id='response-data-22'>Response Data</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2743,9 +2899,9 @@ status=OK、出金依頼が成功したことを示します。<br>
 <aside class="success">
 署名認証が必要です。
 </aside>
-<h3 id='http-request-21'>HTTP Request</h3>
+<h3 id='http-request-22'>HTTP Request</h3>
 <p><code>GET /v1/query/deposit-withdraw?currency=xrp&amp;type=deposit&amp;from=5&amp;size=12</code></p>
-<h3 id='query-parameters-21'>Query Parameters</h3>
+<h3 id='query-parameters-22'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2774,7 +2930,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>大小記録の照会</td>
 </tr>
 </tbody></table>
-<h3 id='response-data-22'>Response Data</h3>
+<h3 id='response-data-23'>Response Data</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2835,7 +2991,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>state</td>
 <td>true</td>
 <td>string</td>
-<td>ステータス ステータスは下の表を参考に</td>
+<td>ステータス, ステータスは下の表を参考に</td>
 </tr>
 <tr>
 <td>created-at</td>
