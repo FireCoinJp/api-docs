@@ -272,6 +272,9 @@
                   <li>
                     <a href="#15f00772c5" class="toc-h2 toc-link" data-title="取引履歴の取得">取引履歴の取得</a>
                   </li>
+                  <li>
+                    <a href="#044106d39a" class="toc-h2 toc-link" data-title="エラーコード">エラーコード</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -315,6 +318,9 @@
                   <li>
                     <a href="#cee15b95a1" class="toc-h2 toc-link" data-title="現在の約定、約定履歴の照会">現在の約定、約定履歴の照会</a>
                   </li>
+                  <li>
+                    <a href="#c4945401db" class="toc-h2 toc-link" data-title="エラーコード一覧">エラーコード一覧</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -335,13 +341,19 @@
               </ul>
           </li>
           <li>
-            <a href="#044106d39a" class="toc-h1 toc-link" data-title="エラーコード">エラーコード</a>
+            <a href="#dcf4bb9d19" class="toc-h1 toc-link" data-title="販売所関連">販売所関連</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#api" class="toc-h2 toc-link" data-title="マーケット関連API">マーケット関連API</a>
+                    <a href="#401564b16d" class="toc-h2 toc-link" data-title="データ購読">データ購読</a>
                   </li>
                   <li>
-                    <a href="#api-2" class="toc-h2 toc-link" data-title="取引関連API">取引関連API</a>
+                    <a href="#6a49b48b05" class="toc-h2 toc-link" data-title="販売所で注文する">販売所で注文する</a>
+                  </li>
+                  <li>
+                    <a href="#19f52c5bd6" class="toc-h2 toc-link" data-title="販売所注文履歴">販売所注文履歴</a>
+                  </li>
+                  <li>
+                    <a href="#43d5c4e8fd" class="toc-h2 toc-link" data-title="販売所メンテナンス時間">販売所メンテナンス時間</a>
                   </li>
               </ul>
           </li>
@@ -610,6 +622,12 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 <li><p>秘密キー(SecretKey)と変換後のリクエスト文字列を使って、署名処理を行い、その結果はBase64エンコードします。<br>上記の値をパラメータSignatureの値としてAPIリクエストに追加します。 このパラメータをリクエストに追加する場合、その値はURIエンコードされている必要があります</p></li>
 <li><p>最終的に、サーバーに送信するAPIリクエストは次のようになります</p></li>
 </ol>
+
+<aside class="active">
+<b>
+注：Postのリクエストにおいて、上記の署名用のパラメータ以外のデータを渡したい場合、Json形式でRequestBodyに入れて送ってください。
+</b>
+</aside>
 <h1 id='f5073b428a'>マスター情報関連</h1><h2 id='65af6c1e27'>取引ペア精度</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="se">\</span>
       <span class="s2">"https://api-cloud.huobi.co.jp/v1/common/symbols"</span>
 </code></pre>
@@ -1383,6 +1401,30 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 <td>データの所属 channel，例えば： market.$symbol.trade.detail</td>
 </tr>
 </tbody></table>
+<h2 id='044106d39a'>エラーコード</h2>
+<table><thead>
+<tr>
+<th>エラーコード</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bad-request</td>
+<td>リクエストエラー</td>
+</tr>
+<tr>
+<td>invalid-parameter</td>
+<td>パラメーターエラー</td>
+</tr>
+<tr>
+<td>invalid-command</td>
+<td>命令エラー</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+具体的な原因は, err-msgに記述されていますので、参照してください。
+</aside>
 <h1 id='f56e112e8f'>アカウント関連</h1><h2 id='eda1f800b0'>ユーザアカウント</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api-cloud.huobi.co.jp/v1/account/accounts"</span>
 </code></pre>
 <blockquote>
@@ -2660,6 +2702,94 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>注文タイプ, [submit-cancel：キャンセル申請済  ,buy-market：成り行き買い, sell-market：成り行き売り, buy-limit：指値買い, sell-limit：指値売り, buy-ioc：IOC買い注文, sell-ioc：IOC売り注文]</td>
 </tr>
 </tbody></table>
+<h2 id='c4945401db'>エラーコード一覧</h2>
+<table><thead>
+<tr>
+<th>エラーコード</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>base-symbol-error</td>
+<td>トレードペアが存在していない</td>
+</tr>
+<tr>
+<td>base-currency-error</td>
+<td>銘柄が存在していない</td>
+</tr>
+<tr>
+<td>base-date-error</td>
+<td>日時フォマットのエラー</td>
+</tr>
+<tr>
+<td>account-transfer-balance-insufficient-error</td>
+<td>残高不足により凍結できません</td>
+</tr>
+<tr>
+<td>bad-argument</td>
+<td>パラメーターの期限切れ</td>
+</tr>
+<tr>
+<td>api-signature-not-valid</td>
+<td>API署名エラー</td>
+</tr>
+<tr>
+<td>gateway-internal-error</td>
+<td>システムビジー，少し時間をあけて再度お試しください</td>
+</tr>
+<tr>
+<td>security-require-assets-password</td>
+<td>資金パスワードの入力が必要</td>
+</tr>
+<tr>
+<td>audit-failed</td>
+<td>注文失敗</td>
+</tr>
+<tr>
+<td>ad-ethereum-address</td>
+<td>有効なETHのアドレスを入力してください</td>
+</tr>
+<tr>
+<td>order-accountbalance-error</td>
+<td>アカウント残高不足</td>
+</tr>
+<tr>
+<td>order-limitorder-price-error</td>
+<td>指値の注文価格が制限を超えている</td>
+</tr>
+<tr>
+<td>order-limitorder-amount-error</td>
+<td>指値の注文量が制限を超えている</td>
+</tr>
+<tr>
+<td>order-orderprice-precision-error</td>
+<td>注文価格が制限精度を超えている</td>
+</tr>
+<tr>
+<td>order-orderamount-precision-error</td>
+<td>注文量が制限精度を超えている</td>
+</tr>
+<tr>
+<td>order-marketorder-amount-error</td>
+<td>注文量が制限を超えている</td>
+</tr>
+<tr>
+<td>order-queryorder-invalid</td>
+<td>この注文を見つけることができない</td>
+</tr>
+<tr>
+<td>order-orderstate-error</td>
+<td>注文ステータスエラー</td>
+</tr>
+<tr>
+<td>order-datelimit-error</td>
+<td>照会時間制限を超えた</td>
+</tr>
+<tr>
+<td>order-update-error</td>
+<td>注文の更新失敗</td>
+</tr>
+</tbody></table>
 <h1 id='c0360c450d'>ウォレット関連</h1>
 <aside class="success">
 引出しのみサポート
@@ -3006,116 +3136,711 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>最後に更新した時間</td>
 </tr>
 </tbody></table>
-<h1 id='044106d39a'>エラーコード</h1><h2 id='api'>マーケット関連API</h2>
+<h1 id='dcf4bb9d19'>販売所関連</h1>
+<p>販売所のAPIを使って、下記のことができます</p>
+
+<ol>
+<li>販売所各通貨のリアルタイム価格の取得</li>
+<li>販売所の約定履歴の取得</li>
+<li>ID指定で仮想通貨の売買</li>
+<li>ユーザの販売履歴の取得</li>
+<li>販売所のメンテナンス時間の取得</li>
+</ol>
+<h2 id='401564b16d'>データ購読</h2><pre class="highlight shell tab-shell"><code><span class="gp">$ </span>wscat -P -c wss://api-cloud.huobi.co.jp/retail/ws
+Connected <span class="o">(</span>press CTRL+C to quit<span class="o">)</span>
+</code></pre>
+<ul>
+<li>url: wss://api-cloud.huobi.co.jp/retail/ws</li>
+</ul>
+
+<aside class="success">
+接続を継続する為に、60秒毎にPingコマンドを発行する必要があります。
+</aside>
+<h3 id='request'>Request</h3>
+<blockquote>
+<p>接続後、JSON形式でコマンド発行できます。</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code><span class="gp">$ </span>wscat -P -c wss://api-cloud.huobi.co.jp/retail/ws
+Connected <span class="o">(</span>press CTRL+C to quit<span class="o">)</span>
+
+<span class="o">{</span><span class="s2">"action"</span>:1,<span class="s2">"topic"</span>:1<span class="o">}</span> // 各通貨価格を購読
+<span class="o">{</span><span class="s2">"action"</span>:2,<span class="s2">"topic"</span>:1<span class="o">}</span> // 価格購読を解除
+<span class="o">{</span><span class="s2">"action"</span>:1,<span class="s2">"topic"</span>:2<span class="o">}</span> // 約定履歴を購読
+<span class="o">{</span><span class="s2">"action"</span>:2,<span class="s2">"topic"</span>:2<span class="o">}</span> // 約定履歴の購読を解除
+<span class="o">{</span><span class="s2">"action"</span>:4,<span class="s2">"ts"</span>:1571388770<span class="o">}</span> // Pingコマンド発行
+</code></pre>
 <table><thead>
 <tr>
-<th>エラーコード</th>
-<th>説明</th>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>bad-request</td>
-<td>リクエストエラー</td>
+<td>ts</td>
+<td>false</td>
+<td>long</td>
+<td>timestamp, 10桁</td>
 </tr>
 <tr>
-<td>invalid-parameter</td>
-<td>パラメーターエラー</td>
+<td>action</td>
+<td>true</td>
+<td>int</td>
+<td>アクション, 1: 購読, 2: 購読解除, 4: ping, 5: pong</td>
 </tr>
 <tr>
-<td>invalid-command</td>
-<td>命令エラー</td>
+<td>topic</td>
+<td>false</td>
+<td>int</td>
+<td>トピック, 1: 販売所価格, 2: 販売所約定履歴</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<aside class="warning">
+gzip圧縮しているので、解凍が必要です。
+</aside>
+<h4 id='response-data-24'>Response Data</h4>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>topic</td>
+<td>int</td>
+<td>リクエストのトピック値</td>
+</tr>
+<tr>
+<td>action</td>
+<td>int</td>
+<td>リクエストのアクション値</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>int</td>
+<td>Timestamp (秒)</td>
+</tr>
+<tr>
+<td>offer</td>
+<td>list</td>
+<td>Offer Dataに参照</td>
+</tr>
+<tr>
+<td>trade</td>
+<td>list</td>
+<td>Trade Dataに参照</td>
 </tr>
 </tbody></table>
 
 <aside class="success">
-code の具体的な詳細については `err-msg`にて対応しているもの参照ください.
+topicによって、offer, tradeデータがどちらか含まれます。
 </aside>
-<h2 id='api-2'>取引関連API</h2>
+<h4 id='offer-data'>Offer Data</h4>
+<blockquote>
+<p>購読後、自動的に下記のデータがプッシュされます。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="err">//</span><span class="w"> </span><span class="err">Offer</span><span class="w"> </span><span class="err">データ</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"buy_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"474141.06666666"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"buy_ratio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26cbe6a90df849bca08c32ba53904bb7"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"market_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"431035.68333333"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"market_ratio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sell_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"387930.30000000"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sell_ratio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCJPY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"buy_min_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"buy_max_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sell_min_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sell_max_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"buy_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"27.51"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"buy_ratio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-14.59"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ec02bbe57f414f0593ff00c21e6b008e"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"market_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"market_ratio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-14.56"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sell_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22.48"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sell_ratio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-14.59"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XRPJPY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"buy_min_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"buy_max_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sell_min_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sell_max_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"topic"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1571388770</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <table><thead>
 <tr>
-<th>エラーコード</th>
-<th>説明</th>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>base-symbol-error</td>
-<td>トレードペアが存在していない</td>
+<td>id</td>
+<td>string</td>
+<td>一意識別子</td>
 </tr>
 <tr>
-<td>base-currency-error</td>
-<td>銘柄が存在していない</td>
+<td>symbol</td>
+<td>string</td>
+<td>取引通貨</td>
 </tr>
 <tr>
-<td>base-date-error</td>
-<td>日時フォマットのエラー</td>
+<td>sell_price</td>
+<td>string</td>
+<td>売値</td>
 </tr>
 <tr>
-<td>account-transfer-balance-insufficient-error</td>
-<td>残高不足により凍結できません</td>
+<td>buy_price</td>
+<td>string</td>
+<td>買値</td>
 </tr>
 <tr>
-<td>bad-argument</td>
-<td>パラメーターの期限切れ</td>
+<td>sell_ratio</td>
+<td>string</td>
+<td>売値の騰落率</td>
 </tr>
 <tr>
-<td>api-signature-not-valid</td>
-<td>API署名エラー</td>
+<td>buy_ratio</td>
+<td>string</td>
+<td>買値の騰落率</td>
 </tr>
 <tr>
-<td>gateway-internal-error</td>
-<td>システムビジー，少し時間をあけて再度お試しください</td>
+<td>market_price</td>
+<td>string</td>
+<td>平均価格</td>
 </tr>
 <tr>
-<td>security-require-assets-password</td>
-<td>資金パスワードの入力が必要</td>
+<td>market_ratio</td>
+<td>string</td>
+<td>騰落率</td>
 </tr>
 <tr>
-<td>audit-failed</td>
-<td>注文失敗</td>
+<td>sell_min_amount</td>
+<td>string</td>
+<td>最小売り数量</td>
 </tr>
 <tr>
-<td>ad-ethereum-address</td>
-<td>有効なETHのアドレスを入力してください</td>
+<td>sell_max_amount</td>
+<td>string</td>
+<td>最大売り数量</td>
 </tr>
 <tr>
-<td>order-accountbalance-error</td>
-<td>アカウント残高不足</td>
+<td>buy_min_amount</td>
+<td>string</td>
+<td>最小買い数量</td>
 </tr>
 <tr>
-<td>order-limitorder-price-error</td>
-<td>指値の注文価格が制限を超えている</td>
+<td>buy_max_amount</td>
+<td>string</td>
+<td>最大買い数量</td>
+</tr>
+</tbody></table>
+<h4 id='trade-data'>Trade Data</h4><pre class="highlight json tab-json"><code><span class="err">//</span><span class="w"> </span><span class="err">約定履歴データ</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"topic"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1553480751</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"gmt_trade"</span><span class="p">:</span><span class="w"> </span><span class="s2">"150004343554"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"btcjpy"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15.21"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.56"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"cash_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"54.1476"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"gmt_trade"</span><span class="p">:</span><span class="w"> </span><span class="s2">"150004343554"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethjpy"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15.21"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.56"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"cash_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"54.1476"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gmt_trade</td>
+<td>long</td>
+<td>取引時刻(timestamp)</td>
 </tr>
 <tr>
-<td>order-limitorder-amount-error</td>
-<td>指値の注文量が制限を超えている</td>
+<td>symbol</td>
+<td>string</td>
+<td>取引通貨</td>
 </tr>
 <tr>
-<td>order-orderprice-precision-error</td>
-<td>注文価格が制限精度を超えている</td>
+<td>type</td>
+<td>int</td>
+<td>取引方向: 1: 買う，2: 売る</td>
 </tr>
 <tr>
-<td>order-orderamount-precision-error</td>
-<td>注文量が制限精度を超えている</td>
+<td>price</td>
+<td>string</td>
+<td>価格</td>
 </tr>
 <tr>
-<td>order-marketorder-amount-error</td>
-<td>注文量が制限を超えている</td>
+<td>amount</td>
+<td>string</td>
+<td>数量</td>
 </tr>
 <tr>
-<td>order-queryorder-invalid</td>
-<td>この注文を見つけることができない</td>
+<td>cash_amount</td>
+<td>string</td>
+<td>金額</td>
+</tr>
+</tbody></table>
+<h2 id='6a49b48b05'>販売所で注文する</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     <span class="s2">"https://api-cloud.huobi.co.jp/v1/retail/order/place?AccessKeyId={accessKey}&amp;SignatureVersion=2&amp;Signature={計算された署名}&amp;SignatureMethod=HmacSHA256&amp;Timestamp=2019-12-23T03%3A56%3A59"</span> <span class="se">\</span>
+     -d <span class="se">\</span>
+<span class="o">{</span>
+    <span class="s2">"id"</span>:<span class="s2">"791025bfdc3b45459b96b5d776ede78f"</span>,
+    <span class="s2">"symbol"</span>: <span class="s2">"btcjpy"</span>,
+    <span class="s2">"type"</span>: 1,
+    <span class="s2">"amount"</span>: <span class="s2">"10.12"</span>,
+    <span class="s2">"price"</span>: <span class="s2">"34.23"</span>,
+    <span class="s2">"source"</span>: 1
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456978</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このAPIは、販売所で指定された仮想通貨を売買できます。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-23'>HTTP Request</h3>
+<p><code>POST /v1/retail/order/place</code></p>
+<h3 id='query-parameters-23'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>string</td>
+<td>websocketから取得されたリアルタイム価格のID, 32桁</td>
 </tr>
 <tr>
-<td>order-orderstate-error</td>
-<td>注文ステータスエラー</td>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>取引ペア</td>
 </tr>
 <tr>
-<td>order-datelimit-error</td>
-<td>照会時間制限を超えた</td>
+<td>type</td>
+<td>true</td>
+<td>int</td>
+<td>注文方向, 1:購入, 2:売る</td>
 </tr>
 <tr>
-<td>order-update-error</td>
-<td>注文の更新失敗</td>
+<td>amount</td>
+<td>false</td>
+<td>double</td>
+<td>取引量, decimal(36,18)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td>取引価格, decimal(36,18)</td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td>経路, 4:api固定</td>
+</tr>
+<tr>
+<td>client_order_id</td>
+<td>false</td>
+<td>string</td>
+<td>クライアントカスタマイズID</td>
+</tr>
+<tr>
+<td>cash_amount</td>
+<td>false</td>
+<td>double</td>
+<td>現金金額, decimal(36,18)</td>
+</tr>
+<tr>
+<td>order-instruction</td>
+<td>true</td>
+<td>int</td>
+<td>注文種類, 1: FOK</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+1. <b>amount</b>,<b>cash_amount</b>はどちら一つが必須です。<br>
+2. <b>amount</b>,<b>cash_amount</b>は一緒に使えません、エラーになります。<br>
+3. <b>FOK</b>:  Fill or Kill, 全部成約するか、失効するか
+4. IDの指定が必要です、IDの取得は「データ購読」に参照してください
+</aside>
+<h3 id='response-data-25'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>code</td>
+<td>int</td>
+<td>Http Status Code</td>
+</tr>
+<tr>
+<td>data</td>
+<td>long</td>
+<td>注文ID</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>メッセージ</td>
+</tr>
+<tr>
+<td>success</td>
+<td>bool</td>
+<td>オペレーション成功か</td>
+</tr>
+</tbody></table>
+<h2 id='19f52c5bd6'>販売所注文履歴</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api-cloud.huobi.co.jp/v1/retail/order/list?AccessKeyId={accessKey}&amp;Signature={計算された署名}&amp;SignatureMethod=HmacSHA256&amp;SignatureVersion=2&amp;Timestamp=2019-12-23T11%3A44%3A13&amp;direct=1"</span>
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"base_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cash_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"473113.85"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"gmt_traded"</span><span class="p">:</span><span class="w"> </span><span class="mi">1556078181000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234567951</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"473113.85"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCJPY"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"symbol_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/JPY"</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1100"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"base_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cash_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"425967300"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"gmt_traded"</span><span class="p">:</span><span class="w"> </span><span class="mi">1555668195000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234567942</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"387243"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCJPY"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"symbol_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/JPY"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このAPIは、注文履歴を表示することができます。</p>
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+<h3 id='http-request-24'>HTTP Request</h3>
+<p><code>GET /v1/retail/order/list</code></p>
+<h3 id='query-parameters-24'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>false</td>
+<td>long</td>
+<td>注文番号</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>false</td>
+<td>int</td>
+<td>表示件数, default=10, max: 100</td>
+</tr>
+<tr>
+<td>from</td>
+<td>false</td>
+<td>string</td>
+<td>開始ID, １ページ以後必要</td>
+</tr>
+<tr>
+<td>direct</td>
+<td>true</td>
+<td>int</td>
+<td>注文方向, 1:next, 2:previous</td>
+</tr>
+<tr>
+<td>base_currency</td>
+<td>false</td>
+<td>string</td>
+<td>基礎通貨</td>
+</tr>
+<tr>
+<td>quote_currency</td>
+<td>false</td>
+<td>string</td>
+<td>通貨単位</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>false</td>
+<td>string</td>
+<td>取引ペア</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>false</td>
+<td>string</td>
+<td>取引タイプ, 1:buy, 2:sell</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>int</td>
+<td>成約状態, 1: 進行中, 2: 完全約定, 3: 未成約</td>
+</tr>
+</tbody></table>
+<h3 id='response-data-26'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>code</td>
+<td>int</td>
+<td>Http Status Code</td>
+</tr>
+<tr>
+<td>data</td>
+<td>list</td>
+<td>注文履歴の内容, Data構造に参照</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>メッセージ</td>
+</tr>
+<tr>
+<td>success</td>
+<td>bool</td>
+<td>成功したか</td>
+</tr>
+</tbody></table>
+<h4 id='data'>DATA構造</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>long</td>
+<td>注文番号</td>
+</tr>
+<tr>
+<td>gmt_traded</td>
+<td>long</td>
+<td>成約時間, timestamp</td>
+</tr>
+<tr>
+<td>symbol_name</td>
+<td>string</td>
+<td>取引通貨名</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>取引通貨記号</td>
+</tr>
+<tr>
+<td>base_currency</td>
+<td>string</td>
+<td>基礎通貨</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>int</td>
+<td>注文方向, 1: buy, 2: sell</td>
+</tr>
+<tr>
+<td>price</td>
+<td>long</td>
+<td>価格</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>long</td>
+<td>数量</td>
+</tr>
+<tr>
+<td>cash_amount</td>
+<td>long</td>
+<td>金額</td>
+</tr>
+<tr>
+<td>state</td>
+<td>long</td>
+<td>注文状態, 1: 進行中, 2: 完全成約, 3: 部分成約, 4: 未成約</td>
+</tr>
+<tr>
+<td>client_order_id</td>
+<td>long</td>
+<td>クライアント側カスタマイズID</td>
+</tr>
+<tr>
+<td>order_source</td>
+<td>long</td>
+<td>経路, 1:web, 2:app, 3:mobile, 4:api</td>
+</tr>
+<tr>
+<td>order_instruction</td>
+<td>long</td>
+<td>成約ロジック, 1: FOK</td>
+</tr>
+</tbody></table>
+<h2 id='43d5c4e8fd'>販売所メンテナンス時間</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api-cloud.huobi.co.jp/v1/retail/maintain/time"</span> 
+</code></pre>
+<blockquote>
+<p>上記のコマンドは、次のような構造のJSONを返します。</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16:30:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17:00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">150004343554</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>このAPIは、メンテナンス時刻を表示することができます。</p>
+<h3 id='http-request-25'>HTTP Request</h3>
+<p><code>GET /v1/retail/maintain/time</code></p>
+<h3 id='query-parameters-25'>Query Parameters</h3>
+<ul>
+<li>なし</li>
+</ul>
+<h3 id='response-data-27'>Response Data</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>code</td>
+<td>int</td>
+<td>Http Status Code</td>
+</tr>
+<tr>
+<td>data</td>
+<td>data</td>
+<td>データクラスを参照</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>メッセージ</td>
+</tr>
+<tr>
+<td>success</td>
+<td>bool</td>
+<td>成功したか</td>
+</tr>
+</tbody></table>
+
+<p>・データクラス</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>start_time</td>
+<td>String</td>
+<td>メンテナンス開始時間</td>
+</tr>
+<tr>
+<td>end_time</td>
+<td>String</td>
+<td>メンテナンス終了時間</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>long</td>
+<td>Timestamp（UTC）</td>
+</tr>
+<tr>
+<td>state</td>
+<td>int</td>
+<td>メンテナンスステータス, 0: 正常，1: メンテナンス中</td>
 </tr>
 </tbody></table>
 <h1 id='websocket'>Websocket共通</h1><h2 id='7a52d716ff'>概要</h2>
