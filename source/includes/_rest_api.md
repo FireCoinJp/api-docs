@@ -154,6 +154,12 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 
 8. 最終的に、サーバーに送信するAPIリクエストは次のようになります
 
+<aside class="active">
+<b>
+注：Postのリクエストにおいて、上記の署名用のパラメータ以外のデータを渡したい場合、Json形式でRequestBodyに入れて送ってください。
+</b>
+</aside>
+
 # マスター情報関連
 
 ## 取引ペア精度 
@@ -750,6 +756,18 @@ size | false | データサイズ, Range: {1, 2000}
 | ts     | true | number | 生成応答時間点，单位：ミリ秒 
 | data   | true | object | 約定記録のリスト 
 | ch     | true | string | データの所属 channel，例えば： market.$symbol.trade.detail
+
+## エラーコード
+
+| エラーコード |  説明 
+| ----- | ----- 
+| bad-request | リクエストエラー 
+| invalid-parameter | パラメーターエラー 
+| invalid-command | 命令エラー
+
+<aside class="warning">
+具体的な原因は, err-msgに記述されていますので、参照してください。
+</aside>
 
 
 # アカウント関連 
@@ -1488,6 +1506,31 @@ Parameter | Required | Description
 | symbol            | true  | string | 取引ペア, [btcjpy, bchbtc,...]
 | type              | true  | string | 注文タイプ, [submit-cancel：キャンセル申請済  ,buy-market：成り行き買い, sell-market：成り行き売り, buy-limit：指値買い, sell-limit：指値売り, buy-ioc：IOC買い注文, sell-ioc：IOC売り注文]
 
+## エラーコード一覧
+
+| エラーコード  |  説明 
+| ----- | ----- 
+| base-symbol-error |  トレードペアが存在していない 
+| base-currency-error |  銘柄が存在していない|
+| base-date-error | 日時フォマットのエラー 
+| account-transfer-balance-insufficient-error | 残高不足により凍結できません 
+| bad-argument | パラメーターの期限切れ 
+| api-signature-not-valid | API署名エラー 
+| gateway-internal-error | システムビジー，少し時間をあけて再度お試しください
+| security-require-assets-password|資金パスワードの入力が必要
+| audit-failed | 注文失敗
+| ad-ethereum-address | 有効なETHのアドレスを入力してください
+| order-accountbalance-error | アカウント残高不足
+| order-limitorder-price-error |指値の注文価格が制限を超えている 
+| order-limitorder-amount-error |指値の注文量が制限を超えている 
+| order-orderprice-precision-error |注文価格が制限精度を超えている 
+| order-orderamount-precision-error |注文量が制限精度を超えている
+| order-marketorder-amount-error |注文量が制限を超えている
+| order-queryorder-invalid |この注文を見つけることができない 
+| order-orderstate-error |注文ステータスエラー
+| order-datelimit-error |照会時間制限を超えた
+| order-update-error |注文の更新失敗
+
 # ウォレット関連
 
 <aside class="success">
@@ -1666,7 +1709,7 @@ Parameter | Required | Description
 
 | Parameter | Required | Type | Description  
 | ------ | ---- | ------ | -------  
-| id  |  true  |  long  |   
+| id  |  true  |  long  |  
 | type  |  true  |  long  | タイプ 'deposit' 'withdraw'
 | currency  |  true  |  string  |  銘柄 
 | tx-hash | true |string | トレードハッシュ
@@ -1677,5 +1720,391 @@ Parameter | Required | Description
 | state | true | string | ステータス, ステータスは下の表を参考に 
 | created-at | true | long | 開始時間
 | updated-at | true | long | 最後に更新した時間
+
+# 販売所関連
+
+販売所のAPIを使って、下記のことができます
+
+1. 販売所各通貨のリアルタイム価格の取得
+2. 販売所の約定履歴の取得
+3. ID指定で仮想通貨の売買
+4. ユーザの販売履歴の取得
+5. 販売所のメンテナンス時間の取得
+
+## データ購読
+
+```shell
+$ wscat -P -c wss://api-cloud.huobi.co.jp/retail/ws
+Connected (press CTRL+C to quit)
+```
+
+* url: wss://api-cloud.huobi.co.jp/retail/ws
+
+<aside class="success">
+接続を継続する為に、60秒毎にPingコマンドを発行する必要があります。
+</aside>
+
+### Request
+
+> 接続後、JSON形式でコマンド発行できます。
+
+```shell
+$ wscat -P -c wss://api-cloud.huobi.co.jp/retail/ws
+Connected (press CTRL+C to quit)
+
+{"action":1,"topic":1} // 各通貨価格を購読
+{"action":2,"topic":1} // 価格購読を解除
+{"action":1,"topic":2} // 約定履歴を購読
+{"action":2,"topic":2} // 約定履歴の購読を解除
+{"action":4,"ts":1571388770} // Pingコマンド発行
+```
+
+| Field | Required | Type | Description  
+| ------ | ---- | ------ | -------  
+| ts |  false |  long  | timestamp, 10桁
+| action |  true  |  int  | アクション, 1: 購読, 2: 購読解除, 4: ping, 5: pong
+| topic |  false |  int  | トピック, 1: 販売所価格, 2: 販売所約定履歴
+ 
+### Response
+
+<aside class="warning">
+gzip圧縮しているので、解凍が必要です。
+</aside>
+
+#### Response Data
+
+
+| Field | Type | Description  
+| ------ | ---- | ------ | -------  
+| topic | int | リクエストのトピック値
+| action | int | リクエストのアクション値
+| ts | int |  Timestamp (秒)
+| offer | list | Offer Dataに参照
+| trade | list | Trade Dataに参照
+
+<aside class="success">
+topicによって、offer, tradeデータがどちらか含まれます。
+</aside>
+
+
+#### Offer Data
+>  購読後、自動的に下記のデータがプッシュされます。
+
+```json
+// Offer データ
+{
+  "code": 200,
+  "data": {
+    "action": 1,
+    "offer": [
+      {
+        "buy_price": "474141.06666666",
+        "buy_ratio": "0.11",
+        "id": "26cbe6a90df849bca08c32ba53904bb7",
+        "market_price": "431035.68333333",
+        "market_ratio": "0.11",
+        "sell_price": "387930.30000000",
+        "sell_ratio": "0.11",
+        "symbol": "BTCJPY",
+        "buy_min_amount": "1",
+        "buy_max_amount": "1000",
+        "sell_min_amount": "1",
+        "sell_max_amount": "1000"
+      },
+      {
+        "buy_price": "27.51",
+        "buy_ratio": "-14.59",
+        "id": "ec02bbe57f414f0593ff00c21e6b008e",
+        "market_price": "25.00",
+        "market_ratio": "-14.56",
+        "sell_price": "22.48",
+        "sell_ratio": "-14.59",
+        "symbol": "XRPJPY",
+        "buy_min_amount": "1",
+        "buy_max_amount": "1000",
+        "sell_min_amount": "1",
+        "sell_max_amount": "1000"
+      }
+    ],
+    "topic": 1,
+    "ts": 1571388770
+  },
+  "success": true
+}
+```
+
+
+| Field | Type  | Description
+| -----  | -----  | -----
+| id | string  | 一意識別子
+| symbol | string  | 取引通貨
+| sell_price | string  | 売値
+| buy_price | string  | 買値
+| sell_ratio | string  | 売値の騰落率
+| buy_ratio | string  | 買値の騰落率
+| market_price | string  | 平均価格
+| market_ratio | string  | 騰落率
+| sell_min_amount | string  | 最小売り数量
+| sell_max_amount | string  | 最大売り数量
+| buy_min_amount | string  | 最小買い数量
+| buy_max_amount | string  | 最大買い数量
+
+
+
+#### Trade Data
+
+```json
+// 約定履歴データ
+{
+  "code": 200,
+  "success": true,
+  "data": {
+    "topic": 2,
+    "action": 1,
+    "ts": 1553480751,
+    "orders": [
+      {
+        "gmt_trade": "150004343554",
+        "symbol": "btcjpy",
+        "type": 1,
+        "price": "15.21",
+        "amount": "3.56",
+        "cash_amount": "54.1476"
+      },
+      {
+        "gmt_trade": "150004343554",
+        "symbol": "ethjpy",
+        "type": 1,
+        "price": "15.21",
+        "amount": "3.56",
+        "cash_amount": "54.1476"
+      }
+    ]
+  }
+}
+```
+
+
+| Field | Type | Description
+| -----  | -----  | -----
+| gmt_trade | long  | 取引時刻(timestamp)
+| symbol | string  | 取引通貨
+| type | int  | 取引方向: 1: 買う，2: 売る
+| price | string  | 価格
+| amount | string  | 数量
+| cash_amount | string  | 金額
+
+## 販売所で注文する
+
+```shell
+curl -X POST \
+     -H "Content-Type: application/json" \
+     "https://api-cloud.huobi.co.jp/v1/retail/order/place?AccessKeyId={accessKey}&SignatureVersion=2&Signature={計算された署名}&SignatureMethod=HmacSHA256&Timestamp=2019-12-23T03%3A56%3A59" \
+     -d \
+{
+    "id":"791025bfdc3b45459b96b5d776ede78f",
+	"symbol": "btcjpy",
+	"type": 1,
+	"amount": "10.12",
+	"price": "34.23",
+	"source": 1
+}
+```
+
+> 上記のコマンドは、次のような構造のJSONを返します。
+
+```json
+{
+    "code": 200,
+    "data": 123456978,
+    "message": null,
+    "success": true
+}
+```
+
+このAPIは、販売所で指定された仮想通貨を売買できます。
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+
+
+### HTTP Request
+
+`POST /v1/retail/order/place`
+
+### Query Parameters
+
+Parameter | Required | Type | Description
+--------- | ------- |  ------- | -----------
+| id | true | string | websocketから取得されたリアルタイム価格のID, 32桁
+| symbol | true | string | 取引ペア
+| type | true | int | 注文方向, 1:購入, 2:売る
+| amount | false | double | 取引量, decimal(36,18)
+| price | true | string | 取引価格, decimal(36,18)
+| source | true | string | 経路, 4:api固定
+| client_order_id | false | string | クライアントカスタマイズID
+| cash_amount | false | double | 現金金額, decimal(36,18)
+| order-instruction | true | int | 注文種類, 1: FOK
+
+<aside class="warning">
+1. <b>amount</b>,<b>cash_amount</b>はどちら一つが必須です。<br>
+2. <b>amount</b>,<b>cash_amount</b>は一緒に使えません、エラーになります。<br>
+3. <b>FOK</b>:  Fill or Kill, 全部成約するか、失効するか
+4. IDの指定が必要です、IDの取得は「データ購読」に参照してください
+</aside>
+
+### Response Data
+
+| Parameter | Type | Description  
+| ------ | ------ | -------  
+| code  | int | Http Status Code
+| data  | long | 注文ID
+| message  | string | メッセージ
+| success  | bool | オペレーション成功か
+
+## 販売所注文履歴
+
+```shell
+curl -X GET "https://api-cloud.huobi.co.jp/v1/retail/order/list?AccessKeyId={accessKey}&Signature={計算された署名}&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2019-12-23T11%3A44%3A13&direct=1"
+```
+
+> 上記のコマンドは、次のような構造のJSONを返します。
+
+```json
+{
+    "code": 200,
+    "data": [
+        {
+            "amount": "1",
+            "base_currency": "BTC",
+            "cash_amount": "473113.85",
+            "gmt_traded": 1556078181000,
+            "id": 1234567951,
+            "order_type": 1,
+            "price": "473113.85",
+            "state": 3,
+            "symbol": "BTCJPY",
+            "symbol_name": "BTC/JPY",
+        },
+        {
+            "amount": "1100",
+            "base_currency": "BTC",
+            "cash_amount": "425967300",
+            "gmt_traded": 1555668195000,
+            "id": 1234567942,
+            "order_type": 2,
+            "price": "387243",
+            "state": 4,
+            "symbol": "BTCJPY",
+            "symbol_name": "BTC/JPY"
+        }
+    ],
+    "message": null,
+    "success": true
+}
+```
+
+このAPIは、注文履歴を表示することができます。
+
+<aside class="success">
+署名認証が必要です。
+</aside>
+
+### HTTP Request
+
+`GET /v1/retail/order/list`
+
+### Query Parameters
+
+Parameter | Required | Type | Description
+--------- | ------- |  ------- | -----------
+| id | false | long | 注文番号
+| limit | false | int | 表示件数, default=10, max: 100
+| from | false | string | 開始ID, １ページ以後必要
+| direct | true | int | 注文方向, 1:next, 2:previous
+| base_currency | false | string | 基礎通貨
+| quote_currency | false | string | 通貨単位
+| symbol | false | string | 取引ペア
+| order_type | false | string | 取引タイプ, 1:buy, 2:sell
+| state | true | int | 成約状態, 1: 進行中, 2: 完全約定, 3: 未成約
+
+### Response Data
+
+| Parameter | Type | Description  
+| ------ | ------ | -------  
+| code  | int | Http Status Code
+| data  | list | 注文履歴の内容, Data構造に参照
+| message  | string | メッセージ
+| success  | bool | 成功したか
+
+#### DATA構造
+
+| Parameter | Type | Description  
+| ------ | ------ | -------  
+| id  | long | 注文番号
+| gmt_traded | long | 成約時間, timestamp
+| symbol_name  | string | 取引通貨名
+| symbol | string | 取引通貨記号
+| base_currency  | string | 基礎通貨
+| order_type  | int | 注文方向, 1: buy, 2: sell
+| price  | long | 価格
+| amount  | long | 数量
+| cash_amount  | long | 金額
+| state | long | 注文状態, 1: 進行中, 2: 完全成約, 3: 部分成約, 4: 未成約
+| client_order_id | long | クライアント側カスタマイズID
+| order_source  | long | 経路, 1:web, 2:app, 3:mobile, 4:api
+| order_instruction  | long | 成約ロジック, 1: FOK
+
+## 販売所メンテナンス時間
+
+```shell
+curl -X GET "https://api-cloud.huobi.co.jp/v1/retail/maintain/time" 
+```
+
+> 上記のコマンドは、次のような構造のJSONを返します。
+
+```json
+{
+    "code": 200,
+    "data": {
+        "start_time": "16:30:00",
+        "end_time": "17:00:00",
+        "ts": 150004343554,
+        "state": 0
+    },
+    "message": null,
+    "success": true
+}
+```
+
+このAPIは、メンテナンス時刻を表示することができます。
+
+
+### HTTP Request
+
+`GET /v1/retail/maintain/time`
+
+### Query Parameters
+
+* なし
+
+### Response Data
+
+| Parameter | Type | Description  
+| ------ | ------ | -------  
+| code  | int | Http Status Code
+| data  | data | データクラスを参照
+| message  | string | メッセージ
+| success  | bool | 成功したか
+
+・データクラス
+
+| Parameter | Type | Description
+|-----|-----|-----
+| start_time | String | メンテナンス開始時間
+| end_time | String | メンテナンス終了時間
+| ts | long | Timestamp（UTC）
+| state | int | メンテナンスステータス, 0: 正常，1: メンテナンス中
 
 
