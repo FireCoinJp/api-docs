@@ -7,7 +7,6 @@ language_tabs: # must be one of https://git.io/vQNgJ
 
 includes:
   - rest_api
-  - errors
   - websocket_api_en
 
 
