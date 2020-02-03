@@ -1654,7 +1654,7 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 署名認証が必要です。
 </aside>
 <h3 id='http-request-11'>HTTP Request</h3>
-<p><code>GET /v1/order/orders/place</code></p>
+<p><code>POST /v1/order/orders/place</code></p>
 <h3 id='query-parameters-11'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -1876,7 +1876,7 @@ sell-limit-maker<br>
 署名認証が必要です。
 </aside>
 <h3 id='http-request-13'>HTTP Request</h3>
-<p><code>GET /v1/order/orders/{order-id}/submitcancel</code></p>
+<p><code>POST /v1/order/orders/{order-id}/submitcancel</code></p>
 <h3 id='query-parameters-13'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -2443,6 +2443,11 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>終了日の照会, 日時フォマットyyyy-mm-dd, default:Now, range:[start-date, now]</td>
 </tr>
 <tr>
+<td>states</td>
+<td>true</td>
+<td>オーダーのタイプの組み合わせ照会，区切り記号は&#39;,&#39;を使用。[submitted 提出済み, partial-filled 部分約定, partial-canceled 部分約定キャンセル, filled 完全約定, canceled キャンセル済み]</td>
+</tr>
+<tr>
 <td>from</td>
 <td>false</td>
 <td>開始照会ID, 注文約定記録ID（最大值）</td>
@@ -2450,7 +2455,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <tr>
 <td>direct</td>
 <td>false</td>
-<td>照会方向, default:next，約定記録ID大から小へ並ぶ, prev:前に，next:後ろに</td>
+<td>照会方向,約定IDの新着順 default: next, Range: {&quot;prev&quot;, &quot;next&quot;}</td>
 </tr>
 <tr>
 <td>size</td>
@@ -2590,7 +2595,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <tr>
 <td>states</td>
 <td>true</td>
-<td>オーダーのタイプの組み合わせ照会，使用&#39;,&#39;分割。[submitted 提出済み, partial-filled 部分約定, partial-canceled 部分約定キャンセル, filled 完全約定, canceled キャンセル済み]</td>
+<td>オーダーのタイプの組み合わせ照会，区切り記号は&#39;,&#39;を使用。[submitted 提出済み, partial-filled 部分約定, partial-canceled 部分約定キャンセル, filled 完全約定, canceled キャンセル済み]</td>
 </tr>
 <tr>
 <td>from</td>
@@ -2600,7 +2605,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <tr>
 <td>direct</td>
 <td>false</td>
-<td>照会方向 default: next, Range: {&quot;prev&quot;, &quot;next&quot;}</td>
+<td>照会方向,約定IDの新着順 default: next, Range: {&quot;prev&quot;, &quot;next&quot;}</td>
 </tr>
 <tr>
 <td>size</td>
@@ -2899,7 +2904,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 署名認証が必要です。
 </aside>
 <h3 id='http-request-20'>HTTP Request</h3>
-<p><code>GET /v1/dw/withdraw/api/create</code></p>
+<p><code>POST /v1/dw/withdraw/api/create</code></p>
 <h3 id='query-parameters-20'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -2968,7 +2973,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 署名認証が必要です。
 </aside>
 <h3 id='http-request-21'>HTTP Request</h3>
-<p><code>GET /v1/dw/withdraw-virtual/{withdraw-id}/cancel</code></p>
+<p><code>POST /v1/dw/withdraw-virtual/{withdraw-id}/cancel</code></p>
 <h3 id='query-parameters-21'>Query Parameters</h3>
 <table><thead>
 <tr>
