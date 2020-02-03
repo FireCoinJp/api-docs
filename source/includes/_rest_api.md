@@ -943,7 +943,7 @@ curl -X POST \
 
 ### HTTP Request
 
-`GET /v1/order/orders/place`
+`POST /v1/order/orders/place`
 
 ### Query Parameters
 
@@ -1070,7 +1070,7 @@ curl -X POST \
 
 ### HTTP Request
 
-`GET /v1/order/orders/{order-id}/submitcancel`
+`POST /v1/order/orders/{order-id}/submitcancel`
 
 ### Query Parameters
 
@@ -1413,8 +1413,9 @@ Parameter | Required | Description
 | types      | false | オーダータイプの組み合わせ照会，使用','分割, [buy-market：成り行き買い, sell-market：成り行き売り, buy-limit：指値買い, sell-limit：指値売り, buy-ioc：IOC買い注文, sell-ioc：IOC売り注文]
 | start-date | false | 開始日の照会, 日時フォマットyyyy-mm-dd, default:-61 days, range:[-61day, now]
 | end-date   | false | 終了日の照会, 日時フォマットyyyy-mm-dd, default:Now, range:[start-date, now]
+| states     | true  | オーダーのタイプの組み合わせ照会，区切り記号は','を使用。[submitted 提出済み, partial-filled 部分約定, partial-canceled 部分約定キャンセル, filled 完全約定, canceled キャンセル済み] |
 | from       | false | 開始照会ID, 注文約定記録ID（最大值）
-| direct     | false | 照会方向, default:next，約定記録ID大から小へ並ぶ, prev:前に，next:後ろに
+| direct     | false | 照会方向,約定IDの新着順 default: next, Range: {"prev", "next"}
 | size       | false | 大小記録の照会, default:100, max: 100
 
 ### Response Data
@@ -1482,9 +1483,9 @@ Parameter | Required | Description
 | types      | false | オーダータイプの組み合わせ照会，複数可, カンマ区切り
 | start-date | false | 開始日の照会, 日時フォマットyyyy-mm-dd, Range: [-61日, Now]
 | end-date   | false | 終了日の照会, 日時フォマットyyyy-mm-dd
-| states     | true  | オーダーのタイプの組み合わせ照会，使用','分割。[submitted 提出済み, partial-filled 部分約定, partial-canceled 部分約定キャンセル, filled 完全約定, canceled キャンセル済み] |
+| states     | true  | オーダーのタイプの組み合わせ照会，区切り記号は','を使用。[submitted 提出済み, partial-filled 部分約定, partial-canceled 部分約定キャンセル, filled 完全約定, canceled キャンセル済み] |
 | from       | false | 開始ID
-| direct     | false | 照会方向 default: next, Range: {"prev", "next"}
+| direct     | false | 照会方向,約定IDの新着順 default: next, Range: {"prev", "next"}
 | size       | false | 大小記録の照会, Range: [0, 100]
 
 ### Response Data
@@ -1598,7 +1599,7 @@ curl -X POST \
 
 ### HTTP Request
 
-`GET /v1/dw/withdraw/api/create`
+`POST /v1/dw/withdraw/api/create`
 
 ### Query Parameters
 
@@ -1642,7 +1643,7 @@ curl -X POST \
 
 ### HTTP Request
 
-`GET /v1/dw/withdraw-virtual/{withdraw-id}/cancel`
+`POST /v1/dw/withdraw-virtual/{withdraw-id}/cancel`
 
 ### Query Parameters
 
