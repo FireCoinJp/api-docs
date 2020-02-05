@@ -1608,7 +1608,7 @@ Parameter | Required | Description
 | address | true | string   | 出金アドレス
 | amount     | true | string | 出金数量
 | currency | true | string | 通貨種別 
-| fee     | false | string | 送金手数料
+| fee     | true | string | 送金手数料
 | addr-tag|false | string | 仮想通貨アドレスの共有tag，xrp
 
 ### Response Data
