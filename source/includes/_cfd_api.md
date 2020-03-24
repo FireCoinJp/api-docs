@@ -340,7 +340,7 @@ marginCoin | false  | 預かり保証金の通貨
 | weekProfitAndLoss | string | 週損益
 | yearProfitAndLoss | string | 年損益
 
-## ポジション一覧
+## CFDポジション一覧
 
 ```shell
 curl -X GET \
@@ -418,7 +418,7 @@ contractCode | false  | コンタクトコード, (ex: btcjpy)
 | updateTimes | int | 更新回数
 | userId | string | ユーザID
 
-## ポジション詳細
+## CFDポジション詳細
 
 ```shell
 curl -X GET \
@@ -515,7 +515,7 @@ limit | false  | 件数
 | updateTimes | int | 更新回数
 | userId | string | ユーザID
 
-## 財務記録
+## CFD財務記録
 
 ```shell
 curl -X GET \
@@ -591,7 +591,6 @@ limit | false  | 件数
 | resultInfo | string | 結果説明
 | remarkInfo | string | 備考
 
-
 ### businessFlagの説明 
 
 | value | Description  
@@ -601,7 +600,7 @@ limit | false  | 件数
 | 16216 | 保有手数料
 | 16217 | 保有手数料キャッシュバック
 
-## 注文API
+## CFD注文実行
 
 ```shell
 curl -X POST \
@@ -664,8 +663,7 @@ stopLossPrice | false | 損切り価格
 | ------ | ------ | -------  
 | orderIdStr | string | オーダーID
 
-
-## 注文キャンセル
+## CFD注文キャンセル
 
 ```shell
 curl -X POST \
@@ -714,7 +712,7 @@ orderId | true  | 注文ID
 | message | string | エラーメッセージ
 | success | bool | 成功したかどうか 
 
-## 注文一覧
+## CFD注文一覧
 
 
 ```shell
@@ -870,7 +868,7 @@ limit | false  | レバレッジ
 | feeCoin | string | 手数料通貨
 | remarkInfo | string | 備考
 
-## 注文詳細
+## CFD注文詳細
 
 
 ```shell
@@ -997,7 +995,7 @@ orderId | true  | 注文ID
 | stopLossPrice | string | 損切り価格
 | isSlippagePrice | string | スリップしたか? [1:yes,2:no]
 
-## 成約履歴
+## CFD成約履歴
 
 
 ```shell
