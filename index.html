@@ -330,10 +330,10 @@
                     <a href="#b6ff136b7b" class="toc-h2 toc-link" data-title="ステータス一覧">ステータス一覧</a>
                   </li>
                   <li>
-                    <a href="#0ee899dbb8" class="toc-h2 toc-link" data-title="仮想通貨の出金申請">仮想通貨の出金申請</a>
+                    <a href="#5b3ccd3202" class="toc-h2 toc-link" data-title="暗号資産の出金申請">暗号資産の出金申請</a>
                   </li>
                   <li>
-                    <a href="#c1681207bc" class="toc-h2 toc-link" data-title="仮想通貨の出金のキャンセル">仮想通貨の出金のキャンセル</a>
+                    <a href="#3e8da4fff1" class="toc-h2 toc-link" data-title="暗号資産の出金のキャンセル">暗号資産の出金のキャンセル</a>
                   </li>
                   <li>
                     <a href="#0091062ee7" class="toc-h2 toc-link" data-title="入出金記録">入出金記録</a>
@@ -495,7 +495,7 @@
 </tr>
 <tr>
 <td>出金</td>
-<td>仮想通貨の出金申請ができます</td>
+<td>暗号資産の出金申請ができます</td>
 </tr>
 <tr>
 <td>取引</td>
@@ -532,7 +532,11 @@
 </thead><tbody>
 <tr>
 <td>User Agent</td>
-<td>&#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36&#39;</td>
+<td>User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36</td>
+</tr>
+<tr>
+<td>Language</td>
+<td>Accept-Language: ja-JP</td>
 </tr>
 <tr>
 <td>POST Request</td>
@@ -1643,7 +1647,7 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 <td>currency</td>
 <td>true</td>
 <td>string</td>
-<td>仮想通貨</td>
+<td>暗号資産</td>
 </tr>
 <tr>
 <td>type</td>
@@ -1691,7 +1695,7 @@ HMACを使う為に、標準化しないと署名の結果は変わります
 <tr>
 <td>account-id</td>
 <td>true</td>
-<td>アカウント ID，accountsを使用して獲得する方法。仮想通貨ペアのトレードを使用‘spot’アカウントのaccountid</td>
+<td>アカウントID，accounts APIを使用して取得できる。取引使用するのはspotのアカウントIDになります。</td>
 </tr>
 <tr>
 <td>amount</td>
@@ -2210,7 +2214,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>field-fees</td>
 <td>true</td>
 <td>string</td>
-<td>約定手数料（買い入れは仮想通貨のために，売り出しは法定通貨のために）</td>
+<td>約定手数料</td>
 </tr>
 <tr>
 <td>finished-at</td>
@@ -2356,7 +2360,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>field-fees</td>
 <td>true</td>
 <td>string</td>
-<td>約定済み手数料（買いは仮想通貨の為に，売りはお金のために）</td>
+<td>約定済み手数料</td>
 </tr>
 <tr>
 <td>finished-at</td>
@@ -2687,7 +2691,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>field-fees</td>
 <td>true</td>
 <td>string</td>
-<td>約定済み手数料（買いは仮想通貨の為に，売りはお金のために）</td>
+<td>約定済み手数料</td>
 </tr>
 <tr>
 <td>finished-at</td>
@@ -2824,7 +2828,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <aside class="success">
 引出しのみサポート
 </aside>
-<h2 id='b6ff136b7b'>ステータス一覧</h2><h3 id='a6cbe7df66'>仮想通貨出金ステータスの定義：</h3>
+<h2 id='b6ff136b7b'>ステータス一覧</h2><h3 id='d97530c5de'>暗号資産出金ステータスの定義：</h3>
 <table><thead>
 <tr>
 <th>ステータス</th>
@@ -2876,7 +2880,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>キャンセル済</td>
 </tr>
 </tbody></table>
-<h3 id='56b3280b64'>仮想通貨入金ステータスの定義：</h3>
+<h3 id='7fa316159a'>暗号資産入金ステータスの定義：</h3>
 <table><thead>
 <tr>
 <th>ステータス</th>
@@ -2904,7 +2908,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>独立</td>
 </tr>
 </tbody></table>
-<h2 id='0ee899dbb8'>仮想通貨の出金申請</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+<h2 id='5b3ccd3202'>暗号資産の出金申請</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
      -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
      <span class="s2">"https://api-cloud.huobi.co.jp/v1/dw/withdraw/api/create"</span> <span class="se">\</span>
      -d <span class="se">\</span>
@@ -2923,7 +2927,7 @@ status=OK、出金依頼が成功したことを示します。<br>
   </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">700</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>本APIは仮想通貨の出金申請を送信する。</p>
+<p>本APIは暗号資産の出金申請を送信する。</p>
 
 <aside class="success">
 署名認証が必要です。
@@ -2980,7 +2984,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <td>出金レコードID</td>
 </tr>
 </tbody></table>
-<h2 id='c1681207bc'>仮想通貨の出金のキャンセル</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+<h2 id='3e8da4fff1'>暗号資産の出金のキャンセル</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
      -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
      <span class="s2">"https://api-cloud.huobi.co.jp/v1/dw/withdraw-virtual/{withdraw-id}/cancel"</span>
 </code></pre>
@@ -2992,7 +2996,7 @@ status=OK、出金依頼が成功したことを示します。<br>
   </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">700</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>本APIは仮想通貨出金のキャンセルリクエストを送信する。</p>
+<p>本APIは暗号資産出金のキャンセルリクエストを送信する。</p>
 
 <aside class="success">
 署名認証が必要です。
@@ -3172,7 +3176,7 @@ status=OK、出金依頼が成功したことを示します。<br>
 <ol>
 <li>販売所各通貨のリアルタイム価格の取得</li>
 <li>販売所の約定履歴の取得</li>
-<li>ID指定で仮想通貨の売買</li>
+<li>ID指定で暗号資産の売買</li>
 <li>ユーザの販売履歴の取得</li>
 <li>販売所のメンテナンス時間の取得</li>
 </ol>
@@ -3471,7 +3475,7 @@ topicによって、offer, tradeデータがどちらか含まれます。
     </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>このAPIは、販売所で指定された仮想通貨を売買できます。</p>
+<p>このAPIは、販売所で指定された暗号資産を売買できます。</p>
 
 <aside class="success">
 署名認証が必要です。
@@ -3881,7 +3885,7 @@ topicによって、offer, tradeデータがどちらか含まれます。
 <li><p>サーバ側はクライアント側からの送信要求を受けてからデータを送信するのではなく、クライアントに新しいデータをプッシュ配信できます。</p></li>
 </ul>
 
-<p>以上のことからWebSocketプロトコルは、仮想通貨相場やその取引のようなリアルタイム性が求められる通信の要件を満たすには最適なインターフェースです。</p>
+<p>以上のことからWebSocketプロトコルは、暗号資産相場やその取引のようなリアルタイム性が求められる通信の要件を満たすには最適なインターフェースです。</p>
 <h1 id='84a0971edd'>リクエストとサブスクリプションについて</h1><h2 id='1'>1. アドレス</h2>
 <ul>
 <li>URL : <code>wss://api-cloud.huobi.co.jp/ws</code></li>
