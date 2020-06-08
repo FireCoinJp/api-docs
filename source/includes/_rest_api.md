@@ -36,7 +36,7 @@ SecretKey | 署名時に必要な秘密鍵 |
 権限 | 説明 |
 ------- | ----- |
 読取 | アカウント情報、取引履歴、入出金履歴の参照ができます |
-出金 | 仮想通貨の出金申請ができます |
+出金 | 暗号資産の出金申請ができます |
 取引 | 取引所、販売所の取引注文、キャンセルができます |
 
 
@@ -69,7 +69,8 @@ curl -X GET \
 
 Header | 説明 |
 --------- | -----------
-User Agent |  'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36' |
+User Agent |  User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 |
+Language | Accept-Language: ja-JP |
 POST Request | Content-Type: application/json | 
 GET Request |  Content-Type: application/x-www-form-urlencoded |
 Response Format | json |
@@ -915,7 +916,7 @@ Parameter | Required | Description
 | Parameter | Required | Type | Description  
 | ------ | ---- | ------ | -------  
 | balance | true | long | 残高
-| currency | true | string | 仮想通貨
+| currency | true | string | 暗号資産
 | type  | true | string | タイプ, trade: トレード残高，frozen: 凍結残高
 
 # 取引関連
@@ -961,7 +962,7 @@ curl -X POST \
 
 Parameter | Required | Description
 --------- | ------- | -----------
-| account-id | true  | アカウント ID，accountsを使用して獲得する方法。仮想通貨ペアのトレードを使用‘spot’アカウントのaccountid 
+| account-id | true  | アカウントID，accounts APIを使用して取得できる。取引使用するのはspotのアカウントIDになります。
 | amount     | true  | 取引数量 
 | price      | false | 指値の注文価格
 | source     | false | 注文のソース, default: api
@@ -1287,7 +1288,7 @@ Parameter | Required | Description
 | created-at        | true  | long   | 注文作成時間
 | field-amount      | true  | string | 約定数量
 | field-cash-amount | true  | string | 約定総額
-| field-fees        | true  | string | 約定手数料（買い入れは仮想通貨のために，売り出しは法定通貨のために）
+| field-fees        | true  | string | 約定手数料
 | finished-at       | false | long   | 注文の終了時間は約定した時間ではなく、キャンセル済の時も含みます 
 | id                | true  | long   | 注文ID
 | price             | true  | string | 注文価格
@@ -1360,7 +1361,7 @@ Parameter | Required | Description
 | created-at        | true  | long   | 注文作成時間
 | field-amount      | true  | string | 約定数量
 | field-cash-amount | true  | string | 約定総金額
-| field-fees        | true  | string | 約定済み手数料（買いは仮想通貨の為に，売りはお金のために）
+| field-fees        | true  | string | 約定済み手数料
 | finished-at       | false | long   | 最終的な約定時間
 | id                | true  | long   | 注文ID
 | price             | true  | string | 注文価格
@@ -1510,7 +1511,7 @@ Parameter | Required | Description
 | created-at        | true  | long   | 注文作成時間 
 | field-amount      | true  | string | 約定数量  
 | field-cash-amount | true  | string | 約定総金額 
-| field-fees        | true  | string | 約定済み手数料（買いは仮想通貨の為に，売りはお金のために）
+| field-fees        | true  | string | 約定済み手数料
 | finished-at       | false | long   | 最終的な約定時間  
 | id                | true  | long   | 注文ID  
 | price             | true  | string | 注文価格 
@@ -1552,7 +1553,7 @@ Parameter | Required | Description
 
 ## ステータス一覧
 
-### 仮想通貨出金ステータスの定義：
+### 暗号資産出金ステータスの定義：
 
 | ステータス | 説明  |
 |--|--|
@@ -1568,7 +1569,7 @@ Parameter | Required | Description
 | confirm-error  | ブロックチェーン上で承認エラー |
 | repealed       | キャンセル済 |
 
-### 仮想通貨入金ステータスの定義：
+### 暗号資産入金ステータスの定義：
 
 |ステータス|説明|
 |--|--|
@@ -1578,7 +1579,7 @@ Parameter | Required | Description
 |safe| 完了 |
 |orphan| 独立 |
 
-## 仮想通貨の出金申請
+## 暗号資産の出金申請
 
 ```shell
 curl -X POST \
@@ -1602,7 +1603,7 @@ curl -X POST \
 }
 ```
 
-本APIは仮想通貨の出金申請を送信する。
+本APIは暗号資産の出金申請を送信する。
 
 <aside class="success">
 署名認証が必要です。
@@ -1621,7 +1622,7 @@ Parameter | Required | Description
 | amount     | true | string | 出金数量
 | currency | true | string | 通貨種別 
 | fee     | true | string | 送金手数料
-| addr-tag|false | string | 仮想通貨アドレスの共有tag，xrp
+| addr-tag|false | string | 暗号資産アドレスの共有tag，xrp
 
 ### Response Data
 
@@ -1629,7 +1630,7 @@ Parameter | Required | Description
 | ------ | ---- | ------ | -------  
 | data  | false | long | 出金レコードID
 
-##  仮想通貨の出金のキャンセル
+##  暗号資産の出金のキャンセル
 
 ```shell
 curl -X POST \
@@ -1646,7 +1647,7 @@ curl -X POST \
 }
 ```
 
-本APIは仮想通貨出金のキャンセルリクエストを送信する。
+本APIは暗号資産出金のキャンセルリクエストを送信する。
 
 <aside class="success">
 署名認証が必要です。
@@ -1740,7 +1741,7 @@ Parameter | Required | Description
 
 1. 販売所各通貨のリアルタイム価格の取得
 2. 販売所の約定履歴の取得
-3. ID指定で仮想通貨の売買
+3. ID指定で暗号資産の売買
 4. ユーザの販売履歴の取得
 5. 販売所のメンテナンス時間の取得
 
@@ -1935,7 +1936,7 @@ curl -X POST \
 }
 ```
 
-このAPIは、販売所で指定された仮想通貨を売買できます。
+このAPIは、販売所で指定された暗号資産を売買できます。
 
 <aside class="success">
 署名認証が必要です。
